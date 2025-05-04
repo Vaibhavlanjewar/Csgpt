@@ -12,7 +12,7 @@ This system serves as a centralized platform to enhance academic preparation and
 ---
 ## 🌐 Visit the Site
 
-👉 **[Click here to explore BTech Prep Buddy](https://csgpt-frontend.onrender.com/)**
+👉 **[Click here to explore CsGpt](https://csgpt-frontend.onrender.com/)**
 
 ## 🚀 How to Run the Project
 
