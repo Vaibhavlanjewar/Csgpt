@@ -1,0 +1,56 @@
+/* .progress-tracker {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.progress-tracker h3 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.progress-bar {
+  width: 900px;
+  height: 10px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #007bff;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.progress-tracker p {
+  color: #555;
+  margin-top: 10px;
+  font-size: 0.9rem;
+} */
+
+.progress-tracker {
+  margin-top: 20px;
+  background: #16213e;
+  padding: 15px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #0b1e36;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-fill {
+  height: 10px;
+  background: #4da3ff;
+  transition: width 0.3s ease;
+}

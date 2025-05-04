@@ -1,0 +1,85 @@
+/* Sidebar */
+.sidebar {
+  width: 350px;
+  background: linear-gradient(to right, #092950, #020c21); /* Gradient background */
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
+  scrollbar-width: thin;
+  scrollbar-color: #bccff4 transparent;
+}
+
+/* Scrollbar styling for WebKit */
+.sidebar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #170202;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar h2 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #f5f5f5; /* Light color for better contrast */
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid #f5f5f5; /* Lighter color for the border */
+  padding-bottom: 8px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: #f5f5f5; /* Light color for better contrast */
+  background-color: #212e47;
+  transition: background-color 0.25s, color 0.25s;
+}
+
+/* Hover effect for Sidebar list items */
+.sidebar li:hover {
+  background-color: #3b4b6b;  /* Slightly darker shade of blue */
+  color: #e7dcdc; /* Light color on hover */
+  font-weight: 500;
+}
+
+/* Subtopics */
+.subtopics li {
+  padding: 8px 20px;
+  margin: 4px 0;
+  border-left: 3px solid #007bff;
+  background-color: #f0f8ff;
+  color: #5e8cbc;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.subtopics li:hover {
+  background-color: #a3c0d1;
+  color: #002b5c;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    max-height: none;
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,116 @@
+/* src/styles/AuthForm.css */
+
+/* Full-page gradient background */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #071e4f 0%, #3c5d84 100%);
+  color: #f5f5f5;
+}
+
+/* Center the card container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 1rem;
+}
+
+/* Card styling */
+.auth-card {
+  background-color: #06162d;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  width: 400px;
+  max-width: 100%;
+  text-align: center;
+  color: #fafdff;
+}
+
+/* Title */
+.auth-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Form inputs */
+.auth-form input {
+  width: 100%;
+  margin: 0.6rem 0;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+}
+
+/* Primary action button */
+.auth-button {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.8rem;
+  background-color: #e32c54;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.auth-button:hover {
+  background-color: #c12748;
+  transform: translateY(-2px);
+}
+
+/* Divider text */
+.divider {
+  margin: 1rem 0;
+  color: #8894ac;
+  font-size: 0.9rem;
+}
+
+/* Google sign-in button */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #fff;
+  color: #444;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.google-btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+/* Google icon */
+.google-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.8rem;
+}
+
+/* Toggle link */
+.toggle-auth {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: #bbb;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.toggle-auth:hover {
+  color: #fff;
+}

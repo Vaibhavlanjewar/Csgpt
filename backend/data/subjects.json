@@ -1,0 +1,184 @@
+{
+    "subjects": [
+        {
+            "name": "Operating Systems (OS)",
+            "topics": [
+                "Process Management",
+                "Threads and Concurrency",
+                "Scheduling Algorithms",
+                "Deadlocks",
+                "Memory Management",
+                "Virtual Memory",
+                "File Systems",
+                "I/O Systems",
+                "Interprocess Communication (IPC)",
+                "System Calls",
+                "Synchronization (Mutex, Semaphore, Monitor)",
+                "Paging and Segmentation",
+                "Distributed Systems"
+            ]
+        },
+        {
+            "name": "Database Management Systems (DBMS)",
+            "topics": [
+                "Relational Model",
+                "SQL Basics (DDL, DML, DCL, TCL)",
+                "Normalization",
+                "Indexing and Hashing",
+                "Transactions and ACID Properties",
+                "Concurrency Control",
+                "Database Security",
+                "NoSQL Databases",
+                "Stored Procedures and Triggers",
+                "CAP Theorem",
+                "Sharding and Replication",
+                "Query Optimization",
+                "Distributed Databases"
+            ]
+        },
+        {
+            "name": "Computer Networks (CN)",
+            "topics": [
+                "OSI Model & TCP/IP Model",
+                "IP Addressing and Subnetting",
+                "Routing Algorithms (Dijkstra, Bellman-Ford)",
+                "TCP vs. UDP",
+                "Network Security (Firewall, VPN, IPS, IDS)",
+                "DNS and DHCP",
+                "HTTP/HTTPS & WebSockets",
+                "Load Balancing and CDN",
+                "NAT (Network Address Translation)",
+                "BGP, OSPF, RIP (Routing Protocols)",
+                "Wireless Networks and IoT Protocols"
+            ]
+        },
+        {
+            "name": "Object-Oriented Programming (OOPs)",
+            "topics": [
+                "Classes and Objects",
+                "Inheritance (Single, Multiple, Multilevel, Hierarchical, Hybrid)",
+                "Polymorphism (Compile-time & Runtime)",
+                "Encapsulation",
+                "Abstraction",
+                "Interfaces & Abstract Classes",
+                "Exception Handling",
+                "Design Patterns (Singleton, Factory, Observer, etc.)",
+                "SOLID Principles",
+                "Memory Management in OOP",
+                "Garbage Collection",
+                "Serialization & Deserialization"
+            ]
+        },
+        {
+            "name": "Web Technologies",
+            "topics": [
+                "HTML Basics",
+                "CSS Styling (Flexbox, Grid, Media Queries)",
+                "JavaScript Fundamentals (ES6+, DOM, Events)",
+                "React.js Basics (Hooks, State Management, Context API)",
+                "Node.js and Express.js",
+                "REST APIs & GraphQL",
+                "Authentication and Authorization (JWT, OAuth)",
+                "Web Security (XSS, CSRF, CORS, SQL Injection)",
+                "Microservices & API Gateway",
+                "Server-side Rendering (SSR) vs. Client-side Rendering (CSR)",
+                "WebSockets & Real-time Communication"
+            ]
+        },
+        {
+            "name": "Data Structures & Algorithms (DSA)",
+            "topics": [
+                "Arrays & Strings",
+                "Linked Lists (Singly, Doubly, Circular)",
+                "Stacks & Queues",
+                "Trees (Binary, BST, AVL, B-Trees, Trie)",
+                "Graphs (DFS, BFS, Dijkstra, Floyd-Warshall)",
+                "Sorting Algorithms (Quick, Merge, Heap, Bubble, Selection, Insertion)",
+                "Searching Algorithms (Binary Search, Linear Search)",
+                "Hashing & Hash Tables",
+                "Dynamic Programming (Knapsack, LCS, LIS)",
+                "Greedy Algorithms",
+                "Recursion & Backtracking"
+            ]
+        },
+        {
+            "name": "System Design",
+            "topics": [
+                "Load Balancing & Scalability",
+                "Microservices vs. Monolithic Architecture",
+                "Caching (Redis, Memcached)",
+                "Message Queues (Kafka, RabbitMQ)",
+                "Consistency, Availability, Partition Tolerance (CAP Theorem)",
+                "Database Replication & Sharding",
+                "API Rate Limiting & Throttling",
+                "High Availability & Fault Tolerance"
+            ]
+        },
+        {
+            "name": "Programming Languages",
+            "topics": {
+                "C": [
+                    "Pointers & Memory Management",
+                    "Dynamic Memory Allocation (malloc, calloc, realloc, free)",
+                    "File Handling",
+                    "Structures & Unions",
+                    "Bitwise Operators",
+                    "Multi-threading (Pthreads)",
+                    "Function Pointers",
+                    "Segmentation Fault & Debugging"
+                ],
+                "C++": [
+                    "OOP Concepts",
+                    "STL (Vectors, Maps, Sets, Iterators)",
+                    "Smart Pointers (Unique, Shared, Weak)",
+                    "Exception Handling",
+                    "Lambda Functions",
+                    "Operator Overloading",
+                    "Multithreading & Concurrency (std::thread, Mutex)"
+                ],
+                "Java": [
+                    "OOP Concepts",
+                    "Collections Framework (List, Set, Map, Queue)",
+                    "Multithreading (Thread Class, Runnable, Executor Framework)",
+                    "Exception Handling",
+                    "JVM, JRE, JDK Internals",
+                    "Memory Management & Garbage Collection",
+                    "Spring Boot Basics",
+                    "JDBC & Hibernate"
+                ],
+                "Python": [
+                    "OOP Concepts",
+                    "File Handling",
+                    "Python Libraries (NumPy, Pandas, Django, Flask)",
+                    "Multithreading & Multiprocessing",
+                    "Memory Management & Garbage Collection",
+                    "Decorators & Generators",
+                    "Exception Handling",
+                    "Web Scraping (BeautifulSoup, Selenium)"
+                ],
+                "JavaScript": [
+                    "ES6+ Features (Arrow Functions, Spread, Rest Operators)",
+                    "Closures & Scope",
+                    "Event Loop & Callbacks",
+                    "Promises & Async/Await",
+                    "Prototypes & Prototype Chain",
+                    "JavaScript Engines (V8, SpiderMonkey)",
+                    "Hoisting & Execution Context",
+                    "Node.js & Express.js"
+                ]
+            }
+        },
+        {
+            "name": "DevOps & Cloud Computing",
+            "topics": [
+                "CI/CD Pipelines (Jenkins, GitHub Actions)",
+                "Containerization (Docker, Kubernetes)",
+                "Cloud Platforms (AWS, GCP, Azure)",
+                "Infrastructure as Code (Terraform, Ansible)",
+                "Monitoring & Logging (Prometheus, ELK Stack)",
+                "Serverless Computing (AWS Lambda, Google Cloud Functions)",
+                "API Gateways & Load Balancers"
+            ]
+        }
+    ]
+}

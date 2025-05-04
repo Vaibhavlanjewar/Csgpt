@@ -1,0 +1,105 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #020c21, #3c5d84);
+  color: #e7dcdc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Logo Styling */
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.logo-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* Hover Animation */
+.logo:hover {
+  color: #ffe066; /* Light golden color */
+  transform: scale(1.1) rotate(5deg); /* Slightly enlarge and rotate */
+}
+
+/* Click Animation */
+.logo:active {
+  transform: scale(0.95) rotate(-5deg); /* Slight shrink on click */
+  color: #ff4e4e;  /* Red color when clicked */
+}
+
+/* Navigation Actions */
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.nav-link:hover {
+  background: rgba(130, 174, 192, 0.12);
+  color: #d64a2a; /* Soft golden yellow for contrast */
+  box-shadow: 0 0 10px rgba(255, 224, 102, 0.4);
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* Logout Button */
+.logout-btn {
+  background: #b95f5f;  /* Soft reddish hue */
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.logout-btn:hover {
+  background-color: #e74c3c;  /* Lighter red */
+  color: #fff;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.5);
+}
+
+/* Adding a cool underline effect */
+.logout-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background-color: #ffe066;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.logout-btn:hover::after {
+  transform: scaleX(1);
+}

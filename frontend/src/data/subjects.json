@@ -1,0 +1,244 @@
+{
+    "subjects": [
+      {
+        "name": "Operating Systems (OS)",
+        "topics": [
+          "Process Management",
+          "Threads and Concurrency",
+          "Scheduling Algorithms",
+          "Deadlocks",
+          "Memory Management",
+          "Virtual Memory",
+          "File Systems",
+          "I/O Systems",
+          "Interprocess Communication (IPC)",
+          "System Calls",
+          "Synchronization (Mutex, Semaphore, Monitor)",
+          "Paging and Segmentation",
+          "Distributed Systems",
+          "Linux Internals",
+          "System Boot Process",
+          "Kernel Mode vs User Mode"
+        ]
+      },
+      {
+        "name": "Database Management Systems (DBMS)",
+        "topics": [
+          "Relational Model",
+          "SQL Basics (DDL, DML, DCL, TCL)",
+          "Normalization",
+          "Indexing and Hashing",
+          "Transactions and ACID Properties",
+          "Concurrency Control",
+          "Database Security",
+          "NoSQL Databases",
+          "Stored Procedures and Triggers",
+          "CAP Theorem",
+          "Sharding and Replication",
+          "Query Optimization",
+          "Distributed Databases",
+          "ER Diagrams",
+          "Database Design"
+        ]
+      },
+      {
+        "name": "Computer Networks (CN)",
+        "topics": [
+          "OSI Model & TCP/IP Model",
+          "IP Addressing and Subnetting",
+          "Routing Algorithms (Dijkstra, Bellman-Ford)",
+          "TCP vs. UDP",
+          "Network Security (Firewall, VPN, IPS, IDS)",
+          "DNS and DHCP",
+          "HTTP/HTTPS & WebSockets",
+          "Load Balancing and CDN",
+          "NAT (Network Address Translation)",
+          "BGP, OSPF, RIP (Routing Protocols)",
+          "Wireless Networks and IoT Protocols",
+          "Email Protocols (SMTP, IMAP, POP)",
+          "Switching Techniques (Circuit, Packet)"
+        ]
+      },
+      {
+        "name": "Object-Oriented Programming (OOPs)",
+        "topics": [
+          "Classes and Objects",
+          "Inheritance (Single, Multiple, Multilevel, Hierarchical, Hybrid)",
+          "Polymorphism (Compile-time & Runtime)",
+          "Encapsulation",
+          "Abstraction",
+          "Interfaces & Abstract Classes",
+          "Exception Handling",
+          "Design Patterns (Singleton, Factory, Observer, etc.)",
+          "SOLID Principles",
+          "Memory Management in OOP",
+          "Garbage Collection",
+          "Serialization & Deserialization",
+          "Access Modifiers",
+          "Object Lifecycle"
+        ]
+      },
+      {
+        "name": "Web Technologies",
+        "topics": [
+          "HTML Basics",
+          "CSS Styling (Flexbox, Grid, Media Queries)",
+          "JavaScript Fundamentals (ES6+, DOM, Events)",
+          "React.js Basics (Hooks, State Management, Context API)",
+          "Node.js and Express.js",
+          "REST APIs & GraphQL",
+          "Authentication and Authorization (JWT, OAuth)",
+          "Web Security (XSS, CSRF, CORS, SQL Injection)",
+          "Microservices & API Gateway",
+          "SSR vs CSR",
+          "WebSockets & Real-time Communication",
+          "MVC Architecture",
+          "Progressive Web Apps (PWA)"
+        ]
+      },
+      {
+        "name": "Data Structures & Algorithms (DSA)",
+        "topics": [
+          "Arrays & Strings",
+          "Linked Lists (Singly, Doubly, Circular)",
+          "Stacks & Queues",
+          "Trees (Binary, BST, AVL, B-Trees, Trie)",
+          "Graphs (DFS, BFS, Dijkstra, Floyd-Warshall)",
+          "Sorting Algorithms (Quick, Merge, Heap, Bubble, Selection, Insertion)",
+          "Searching Algorithms (Binary Search, Linear Search)",
+          "Hashing & Hash Tables",
+          "Dynamic Programming (Knapsack, LCS, LIS)",
+          "Greedy Algorithms",
+          "Recursion & Backtracking",
+          "Time and Space Complexity",
+          "Sliding Window",
+          "Divide and Conquer",
+          "Bit Manipulation"
+        ]
+      },
+      {
+        "name": "System Design",
+        "topics": [
+          "Load Balancing & Scalability",
+          "Microservices vs. Monolithic Architecture",
+          "Caching (Redis, Memcached)",
+          "Message Queues (Kafka, RabbitMQ)",
+          "CAP Theorem",
+          "Database Replication & Sharding",
+          "API Rate Limiting & Throttling",
+          "High Availability & Fault Tolerance",
+          "Designing Scalable Databases",
+          "Consistent Hashing",
+          "Data Partitioning",
+          "Horizontal vs Vertical Scaling",
+          "Designing Chat Systems / YouTube / Uber"
+        ]
+      },
+      {
+        "name": "DevOps & Cloud Computing",
+        "topics": [
+          "CI/CD Pipelines (Jenkins, GitHub Actions)",
+          "Containerization (Docker, Kubernetes)",
+          "Cloud Platforms (AWS, GCP, Azure)",
+          "Infrastructure as Code (Terraform, Ansible)",
+          "Monitoring & Logging (Prometheus, ELK Stack)",
+          "Serverless Computing (AWS Lambda, GCF)",
+          "API Gateways & Load Balancers",
+          "Cloud Storage & Databases",
+          "Auto-scaling",
+          "DevOps Culture & Principles"
+        ]
+      },
+      {
+        "name": "C Programming",
+        "topics": [
+          "Variables and Data Types",
+          "Operators and Expressions",
+          "Control Statements (if, switch, loops)",
+          "Functions and Recursion",
+          "Pointers and Arrays",
+          "Structures and Unions",
+          "File Handling",
+          "Dynamic Memory Allocation (malloc, calloc, free)",
+          "Preprocessor Directives",
+          "Command-line Arguments",
+          "Memory Management",
+          "Bitwise Operations",
+          "Linked List Implementation"
+        ]
+      },
+      {
+        "name": "C++ Programming",
+        "topics": [
+          "C++ Basics and Syntax",
+          "Object-Oriented Programming (OOP)",
+          "Constructors and Destructors",
+          "Inheritance and Polymorphism",
+          "STL (Vectors, Maps, Sets, Iterators)",
+          "Templates (Function & Class)",
+          "Exception Handling",
+          "Lambda Functions",
+          "Smart Pointers",
+          "Multithreading and Concurrency",
+          "File I/O",
+          "Operator Overloading",
+          "Move Semantics"
+        ]
+      },
+      {
+        "name": "Java Programming",
+        "topics": [
+          "Java Basics and Syntax",
+          "Classes, Objects, and OOP Concepts",
+          "Interfaces and Abstract Classes",
+          "Exception Handling",
+          "Collections Framework (List, Set, Map)",
+          "Multithreading (Runnable, Thread, ExecutorService)",
+          "File Handling (Streams, Readers, Writers)",
+          "JVM Architecture, JDK, JRE",
+          "Memory Management and GC",
+          "Lambda and Streams",
+          "Spring Boot Basics",
+          "Annotations",
+          "Java 8 Features"
+        ]
+      },
+      {
+        "name": "Python Programming",
+        "topics": [
+          "Syntax and Data Types",
+          "Functions and Modules",
+          "File Handling",
+          "OOP in Python",
+          "Decorators and Generators",
+          "Error Handling",
+          "List, Set, Dict Comprehensions",
+          "Multithreading and Multiprocessing",
+          "NumPy and Pandas",
+          "Flask and Django Basics",
+          "APIs with FastAPI",
+          "Regular Expressions",
+          "Web Scraping (BeautifulSoup, Selenium)"
+        ]
+      },
+      {
+        "name": "JavaScript Programming",
+        "topics": [
+          "Variables and Scope",
+          "Functions and Closures",
+          "ES6+ Features (Arrow, Destructuring, Spread)",
+          "DOM Manipulation",
+          "Asynchronous JS (Callbacks, Promises, Async/Await)",
+          "Prototypes and Inheritance",
+          "Modules and Imports",
+          "Event Loop and Call Stack",
+          "Web APIs (Fetch, localStorage)",
+          "Node.js Basics",
+          "Express.js Routing",
+          "NPM Modules",
+          "Error Handling and Debugging"
+        ]
+      }
+    ]
+  }
+  

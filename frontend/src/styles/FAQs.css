@@ -1,0 +1,36 @@
+.info-section {
+    background-color: #4f719a;
+    color: #f1eaea;
+    padding: 2rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    font-family: "Segoe UI", sans-serif;
+  }
+  
+  .info-section h2 {
+    margin-top: 0;
+    color: #0a0539;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .info-section p {
+    line-height: 1.6;
+    color: #f9f9f9;
+  }
+  
+  .faq-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .faq-list li {
+    margin-bottom: 1rem;
+  }
+  
+  .faq-list h4 {
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+  }
+  

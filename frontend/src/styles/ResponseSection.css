@@ -1,0 +1,178 @@
+/* Response Section */
+.response-section {
+  flex: 1;
+  background-color: #ffffff;
+  color: #f3eaea;
+  padding: 26px;
+  border-radius: 10px;
+  margin-left: 10px;
+  box-shadow: 5px 2px 8px rgba(37, 78, 120, 0.1);
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Container around the selected topic */
+.selected-topic {
+  background-color: #8492a6; 
+  color:#0b1e36;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 13px;
+  margin: 15px 100px 15px;
+  font-size: 1rem;
+}
+
+/* Text styles for both the label and the value */
+.selected-topic h3,
+.selected-topic p {
+  color: #c8a3a3;     /* White text */
+  margin: 4px;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: rem;    /* Keep font size uniform */
+}
+
+/* Slight spacing between label and value */
+.selected-topic p {
+  margin-left: 15px;
+}
+
+
+/* Prompt text (AI response) */
+.response-section h3:not(:first-of-type) {
+  color: #c7d3e2;
+  font-size: 1.2rem;
+  margin: 20px 0 10px;
+}
+
+/* Improved styling for the prompt */
+.response-section p {
+  margin: 0 0 10px 0;
+  line-height: 1.7;
+  color: #222;
+}
+
+/* Controls (buttons) */
+.response-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.response-controls button {
+  background-color: #0b1e36;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.response-controls button:hover {
+  background-color: #003b6f;
+}
+
+/* Content display */
+.response {
+  background-color: #f9f9f9;
+  padding: 18px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+.response h4 {
+  font-size: 1.05rem;
+  margin-top: 20px;
+  color: #0b1e36;
+}
+
+/* Lists */
+.response ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.response ul li {
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+/* Code blocks */
+.response pre {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  padding: 12px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  margin: 15px 0;
+}
+
+.response code {
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* Tables */
+.response-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.response-table th,
+.response-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.response-table th {
+  background-color: #f1f5f9;
+  color: #0b1e36;
+  font-weight: 600;
+}
+
+.response-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .response-section {
+    margin-left: 0;
+    margin-top: 20px;
+    max-height: none;
+  }
+
+  .response-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .response-controls button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .response-section {
+    padding: 16px;
+  }
+
+  .response pre {
+    font-size: 0.85rem;
+  }
+
+  .response-table th,
+  .response-table td {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}

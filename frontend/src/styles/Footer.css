@@ -1,0 +1,32 @@
+/* src/styles/Footer.css */
+
+.footer {
+  background: linear-gradient(135deg, #010d1d, #06203a);
+  color: #f1f1f1;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  border-top: 1px solid #2c3e50;
+}
+
+/* Social icons container */
+.social-links {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Social icon styling */
+.social-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(1) invert(1); /* makes black icons white by default */
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+  filter: brightness(1) invert(0) sepia(1) saturate(5) hue-rotate(200deg); /* gradient tint simulation */
+}
