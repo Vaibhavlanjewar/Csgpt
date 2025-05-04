@@ -17,9 +17,10 @@ This system serves as a centralized platform to enhance academic preparation and
 cd frontend
 npm install
 npm start
-
+```
 ### 🔸 backend
 ```bash
 cd backend
 npm install
 node server.js
+```
