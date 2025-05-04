@@ -30,53 +30,55 @@ function App() {
 
   const handleTopicClick = async (topic) => {
     setSelectedTopic(topic);
+
     const prompt = `You are an AI-powered educational assistant built to help Computer Science students, interviewees, and professionals deeply understand technical topics.
 
-    Please explain the topic: **"${topic}"** with the following structure and depth:
+Please explain the topic: **"${topic}"** with the following structure and depth:
 
-    1. ✅ **Analogy-Based Introduction**
-       - Start with a beginner-friendly analogy or metaphor that simplifies the topic.
-       - Make it relatable for students, researchers, and developers.
+1. ✅ **Analogy-Based Introduction**
+   - Start with a beginner-friendly analogy or metaphor that simplifies the topic.
+   - Make it relatable for students, researchers, and developers.
 
-    2. ✅ **Detailed Conceptual Theory**
-       - Provide structured explanations, including prerequisite knowledge.
-       - Add variations, real-world applications in academia & industry.
+2. ✅ **Detailed Conceptual Theory**
+   - Provide structured explanations, including prerequisite knowledge.
+   - Add variations, real-world applications in academia & industry.
 
-    3. ✅ **Code Examples in Multiple Languages**
-       - Show practical implementations in **Python, Java, C++, and C, and SQL if required in database and SQL questions**.
-       - For each snippet, explain logic and purpose.
+3. ✅ **Code Examples in Multiple Languages**
+   - Show practical implementations in **Python, Java, C++, and C, and SQL if required in database and SQL questions**.
+   - For each snippet, explain logic and purpose.
 
-    4. ✅ **Important Conceptual Notes**
-       - Summarize 8–10 critical takeaways, formulas, key points.
+4. ✅ **Important Conceptual Notes**
+   - Summarize 8–10 critical takeaways, formulas, key points.
 
-    5. ✅ **25+ Common Interview Questions and Answers**
-       - List 25+ technical interview questions.
-       - Explain detailed answers with code and reasoning.
+5. ✅ **25+ Common Interview Questions and Answers**
+   - List 25+ technical interview questions.
+   - Explain detailed answers with code and reasoning.
 
-    6. ✅ **Bonus (Optional)**
-       - Include simple visuals, ASCII diagrams, pseudocode or flowcharts if helpful.
-       - Suggest further reading or tools if relevant.
+6. ✅ **Bonus (Optional)**
+   - Include simple visuals, ASCII diagrams, pseudocode or flowcharts if helpful.
+   - Suggest further reading or tools if relevant.
 
-    🧠 Format the entire content in **clear Markdown** using headings, lists, code blocks (\`\`\`), and emphasis.
+🧠 Format the entire content in **clear Markdown** using headings, lists, code blocks (\`\`\`), and emphasis.
 
-    🎯 Suitable for:
-    - University learners
-    - Technical interview prep
-    - Self-paced AI learning`;
+🎯 Suitable for:
+- University learners
+- Technical interview prep
+- Self-paced AI learning`;
+
+    const backendUrl =
+      process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/ask-ai`,
-        { prompt }
-      );
+      const response = await axios.post(`${backendUrl}/api/ask-ai`, { prompt });
       setAIResponse(response.data.response);
-      setProgress((prevProgress) => (prevProgress + 10) % 100);
+      setProgress((prev) => (prev + 10) % 100);
     } catch (error) {
       console.error("Error fetching AI response:", error);
       setAIResponse("Failed to fetch AI response.");
     }
   };
 
+  // 🛠️ Move the auth guard HERE — not inside handleTopicClick!
   if (!isAuthenticated) {
     return <AuthForm onLogin={() => setIsAuthenticated(true)} />;
   }
