@@ -8,7 +8,11 @@ One of the standout features is a **well-organized sidebar** that lists all majo
 
 This system serves as a centralized platform to enhance academic preparation and interview readiness — solving real-world learning difficulties in a single, interactive interface.
 
+
 ---
+## 🌐 Visit the Site
+
+👉 **[Click here to explore BTech Prep Buddy](https://csgpt-frontend.onrender.com/)**
 
 ## 🚀 How to Run the Project
 
