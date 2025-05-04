@@ -7,3 +7,13 @@ Computer Science and IT students often face challenges when preparing for core s
 One of the standout features is a **well-organized sidebar** that lists all major subjects along with their most important subtopics.
 
 This system serves as a centralized platform to enhance academic preparation and interview readiness — solving real-world learning difficulties in a single, interactive interface.
+
+---
+
+## 🚀 How to Run the Project
+
+### 🔸 Frontend
+```bash
+cd frontend
+npm install
+npm start
