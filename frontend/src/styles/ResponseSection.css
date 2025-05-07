@@ -7,7 +7,7 @@
   margin: 0 auto;
   max-width: 900px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1e293b;
+  color:#daebea;
 }
 
 /* Header Section */
@@ -88,14 +88,14 @@
 
 .response-title {
   font-size: 1.8rem;
-  color: #1e40af;
+  color:#ced6f0;
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #e2e8f0;
 }
 
 .response-heading {
-  color: #1e40af;
+  color:#e6f5f3;
   margin: 1.5rem 0 1rem;
 }
 
@@ -106,7 +106,7 @@
 
 .response-paragraph {
   margin-bottom: 1rem;
-  color: #334155;
+  color: #171f66;
 }
 
 .response-list {
@@ -120,7 +120,7 @@
 
 .code-block {
   background-color: #1e293b;
-  color: #f8fafc;
+  color: #dde0ce;
   padding: 1rem;
   border-radius: 6px;
   overflow-x: auto;
