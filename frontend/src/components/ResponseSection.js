@@ -160,17 +160,7 @@ const downloadPDF = () => {
       margin: 0;
       padding: 0;
     }
-    .response-section,
-    .response-title,
-    .response-heading,
-    .response-paragraph,
-    .response-list,
-    .code-block,
-    .response-table,
-    .response-table th,
-    .response-table td {
-      all: revert;
-    }
+
     .response-title {
       font-size: 24px;
       color: #1e40af;
@@ -178,19 +168,23 @@ const downloadPDF = () => {
       text-align: center;
       margin-bottom: 20px;
     }
+
     .response-heading {
       color: #1e293b;
       font-weight: bold;
       margin: 16px 0 8px;
     }
+
     .response-paragraph {
       margin-bottom: 10px;
       color: #1e293b;
     }
+
     .response-list {
       margin-left: 20px;
       color: #1e293b;
     }
+
     .code-block {
       background: #0f172a;
       color: #f8fafc;
@@ -199,31 +193,41 @@ const downloadPDF = () => {
       font-family: monospace;
       font-size: 12px;
     }
+
     .response-table {
       width: 100%;
       border-collapse: collapse;
-      background: #f1f5f9;
-      color: #1e293b;
-      border-radius: 6px;
+      margin: 2rem 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
     }
-    .response-table th {
-      background: #2563eb;
-      color: white;
-      padding: 10px;
-      font-weight: bold;
-    }
+
+    .response-table th,
     .response-table td {
-      padding: 10px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      text-align: left;
     }
+
+    .response-table th {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      font-weight: 700;
+    }
+
     .response-table tr:nth-child(even) {
-      background: #e2e8f0;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .response-table tr:hover {
+      background: rgba(255, 255, 255, 0.08);
     }
   `;
 
   const wrapper = document.createElement("div");
   wrapper.style.padding = "30px";
-  wrapper.style.backgroundColor = "white";
+  wrapper.style.backgroundColor = "#ffffff"; // Ensures a clean white background
   wrapper.appendChild(styleSheet);
 
   const heading = document.createElement("h1");
@@ -237,7 +241,7 @@ const downloadPDF = () => {
   html2canvas(wrapper, {
     scale: 2,
     useCORS: true,
-    backgroundColor: "white",
+    backgroundColor: "#ffffff",
   }).then((canvas) => {
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF("p", "mm", "a4");
