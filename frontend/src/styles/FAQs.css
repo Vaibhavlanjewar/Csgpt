@@ -1,14 +1,14 @@
 .faq-container {
   width: 100%;
-  max-width: 1000px;
-  margin: 2rem auto;
-  background-color: #1e2a45;
-  border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background-color: #4f719a;
+  border-radius: 10px;
+  color: #f1eaea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   font-family: "Segoe UI", sans-serif;
-  color: #ffffff;
+  margin-top: 1rem;
 }
+
 
 .faq-container h2 {
   text-align: center;
