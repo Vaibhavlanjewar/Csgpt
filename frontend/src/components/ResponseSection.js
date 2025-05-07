@@ -147,39 +147,97 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     });
   };
 
-  const downloadPDF = () => {
+ // Update to downloadPDF function in ResponseSection.jsx
+const downloadPDF = () => {
   if (!responseRef.current) return;
 
   const input = responseRef.current;
-
-  // Clone the response content to preserve original
   const clonedNode = input.cloneNode(true);
 
-  // Create a temporary container for styling
-  const tempContainer = document.createElement("div");
-  tempContainer.style.padding = "2rem";
-  tempContainer.style.backgroundColor = "#ffffff";
-  tempContainer.style.color = "#1e293b";
-  tempContainer.style.width = "900px";
-  tempContainer.style.fontFamily = "'Inter', 'Segoe UI', sans-serif";
-  tempContainer.appendChild(clonedNode);
-  document.body.appendChild(tempContainer);
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .response-section,
+    .response-title,
+    .response-heading,
+    .response-paragraph,
+    .response-list,
+    .code-block,
+    .response-table,
+    .response-table th,
+    .response-table td {
+      all: revert;
+    }
+    .response-title {
+      font-size: 24px;
+      color: #1e40af;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .response-heading {
+      color: #1e293b;
+      font-weight: bold;
+      margin: 16px 0 8px;
+    }
+    .response-paragraph {
+      margin-bottom: 10px;
+      color: #1e293b;
+    }
+    .response-list {
+      margin-left: 20px;
+      color: #1e293b;
+    }
+    .code-block {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+    .response-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #f1f5f9;
+      color: #1e293b;
+      border-radius: 6px;
+    }
+    .response-table th {
+      background: #2563eb;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .response-table td {
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+    }
+    .response-table tr:nth-child(even) {
+      background: #e2e8f0;
+    }
+  `;
 
-  // Add a heading manually for "CSGPT Notes"
+  const wrapper = document.createElement("div");
+  wrapper.style.padding = "30px";
+  wrapper.style.backgroundColor = "white";
+  wrapper.appendChild(styleSheet);
+
   const heading = document.createElement("h1");
   heading.innerText = "CSGPT Notes";
-  heading.style.textAlign = "center";
-  heading.style.fontSize = "28px";
-  heading.style.color = "#1e40af";
-  heading.style.marginBottom = "20px";
-  heading.style.fontWeight = "800";
-  tempContainer.insertBefore(heading, clonedNode);
+  heading.className = "response-title";
+  wrapper.appendChild(heading);
+  wrapper.appendChild(clonedNode);
 
-  html2canvas(tempContainer, {
+  document.body.appendChild(wrapper);
+
+  html2canvas(wrapper, {
     scale: 2,
-    backgroundColor: "#ffffff",
     useCORS: true,
-    logging: false
+    backgroundColor: "white",
   }).then((canvas) => {
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF("p", "mm", "a4");
@@ -187,26 +245,20 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     const pdfHeight = pdf.internal.pageSize.getHeight();
     const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
-    let position = 10;
-    if (imgHeight < pdfHeight) {
-      pdf.addImage(imgData, "PNG", 10, position, pdfWidth - 20, imgHeight);
-    } else {
-      // Handle multi-page content
-      let heightLeft = imgHeight;
-      let y = 10;
+    let heightLeft = imgHeight;
+    let position = 0;
 
-      while (heightLeft > 0) {
-        pdf.addImage(imgData, "PNG", 10, y, pdfWidth - 20, imgHeight);
-        heightLeft -= pdfHeight;
-        if (heightLeft > 0) {
-          pdf.addPage();
-          y = 0;
-        }
+    while (heightLeft > 0) {
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+      heightLeft -= pdfHeight;
+      if (heightLeft > 0) {
+        pdf.addPage();
+        position = 0;
       }
     }
 
     pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
-    document.body.removeChild(tempContainer); // Clean up
+    document.body.removeChild(wrapper);
   });
 };
 
