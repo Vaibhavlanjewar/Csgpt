@@ -181,14 +181,23 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
       </div>
 
       <h3>AI Response:</h3>
-      <div className="response-controls">
-        <button onClick={copyToClipboard} disabled={isLoading}>
-          {isLoading ? "Loading..." : "Copy Response"}
-        </button>
-        <button onClick={downloadPDF} disabled={isLoading}>
-          {isLoading ? "Generating..." : "Download Notes as PDF"}
-        </button>
-      </div>
+  <div className="response-controls">
+  <button className="full-width-button" onClick={copyToClipboard} disabled={isLoading}>
+    {isLoading ? (
+      <span className="loader"></span>
+    ) : (
+      "📋 Copy Response"
+    )}
+  </button>
+  <button className="full-width-button" onClick={downloadPDF} disabled={isLoading}>
+    {isLoading ? (
+      <span className="loader"></span>
+    ) : (
+      "⬇️ Download PDF"
+    )}
+  </button>
+</div>
+
 
       {isLoading ? (
         <div className="loading-message">Parsing response, please wait...</div>
