@@ -1,46 +1,232 @@
-/* Global Styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-  width: 100%;
-  font-family: 'Roboto', sans-serif;
-  background-color: #f8fafc;
+/* Response Section Container */
+.response-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 900px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1e293b;
-  overflow-x: hidden;
 }
 
-/* App Layout */
-.App {
+/* Header Section */
+.response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.selected-topic {
+  font-size: 1.1rem;
+}
+
+.selected-label {
+  color: #64748b;
+  margin-right: 0.5rem;
+}
+
+.topic-name {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.copy-button {
+  background-color: #1e40af;
+  color: white;
+}
+
+.copy-button:hover:not(:disabled) {
+  background-color: #1e3a8a;
+}
+
+.download-button {
+  background-color: #ffffff;
+  color: #1e40af;
+  border: 1px solid #1e40af;
+}
+
+.download-button:hover:not(:disabled) {
+  background-color: #f8fafc;
+}
+
+.button-icon {
+  font-size: 0.9rem;
+}
+
+/* Response Content */
+.response-content {
+  line-height: 1.7;
+}
+
+.response-title {
+  font-size: 1.8rem;
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.response-heading {
+  color: #1e40af;
+  margin: 1.5rem 0 1rem;
+}
+
+.response-heading:nth-of-type(1) { font-size: 1.6rem; }
+.response-heading:nth-of-type(2) { font-size: 1.4rem; }
+.response-heading:nth-of-type(3) { font-size: 1.2rem; }
+.response-heading:nth-of-type(4) { font-size: 1.1rem; }
+
+.response-paragraph {
+  margin-bottom: 1rem;
+  color: #334155;
+}
+
+.response-list {
+  margin: 1rem 0 1rem 1.5rem;
+  list-style-type: disc;
+}
+
+.response-list li {
+  margin-bottom: 0.5rem;
+}
+
+.code-block {
+  background-color: #1e293b;
+  color: #f8fafc;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.response-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.response-table th,
+.response-table td {
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.response-table th {
+  background-color: #f1f5f9;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.response-table tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Loading State */
+.loading-state {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  margin: 1rem 0;
 }
 
-.content-container {
-  flex: 1;
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #1e40af;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loading-text {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  color: #64748b;
+  text-align: center;
   padding: 2rem;
-  background-color: #f1f5f9;
+  background-color: #f8fafc;
+  border-radius: 8px;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-::-webkit-scrollbar-track {
-  background: #e2e8f0;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .response-section {
+    padding: 1.5rem;
+  }
+  
+  .response-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .action-buttons {
+    width: 100%;
+  }
+  
+  .action-button {
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .response-title {
+    font-size: 1.5rem;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: #94a3b8;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+@media (max-width: 480px) {
+  .response-section {
+    padding: 1rem;
+  }
+  
+  .action-button {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
 }
