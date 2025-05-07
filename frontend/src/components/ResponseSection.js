@@ -1,24 +1,27 @@
 // src/components/ResponseSection.js
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "../styles/ResponseSection.css";
 
 const ResponseSection = ({ selectedTopic, aiResponse }) => {
-  const [parsedResponse, setParsedResponse] = useState([]);
+  const [parsedContent, setParsedContent] = useState([]);
   const responseRef = useRef(null);
 
   useEffect(() => {
+    if (!aiResponse) return;
+
     const lines = aiResponse.split("\n");
-    const elements = [];
+    const components = [];
+
     let inCodeBlock = false;
     let codeBuffer = [];
     let listBuffer = [];
     let tableBuffer = [];
 
     const flushList = (key) => {
-      if (listBuffer.length > 0) {
-        elements.push(
+      if (listBuffer.length) {
+        components.push(
           <ul key={`ul-${key}`}>
             {listBuffer.map((item, idx) => (
               <li key={`li-${key}-${idx}`}>{item}</li>
@@ -32,29 +35,18 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
     const flushTable = (key) => {
       if (tableBuffer.length > 0) {
         const rows = tableBuffer
-          .map((row) =>
-            row
-              .split("|")
-              .map((cell) => cell.trim())
-              .filter(Boolean)
-          );
-        const header = rows[0];
-        const body = rows.slice(1);
-        elements.push(
+          .map(row => row.split("|").map(cell => cell.trim()).filter(Boolean));
+        const [header, ...body] = rows;
+
+        components.push(
           <table key={`table-${key}`} className="response-table">
             <thead>
-              <tr>
-                {header.map((head, idx) => (
-                  <th key={`th-${key}-${idx}`}>{head}</th>
-                ))}
-              </tr>
+              <tr>{header.map((head, idx) => <th key={`th-${idx}`}>{head}</th>)}</tr>
             </thead>
             <tbody>
               {body.map((row, rIdx) => (
-                <tr key={`tr-${key}-${rIdx}`}>
-                  {row.map((cell, cIdx) => (
-                    <td key={`td-${key}-${rIdx}-${cIdx}`}>{cell}</td>
-                  ))}
+                <tr key={`tr-${rIdx}`}>
+                  {row.map((cell, cIdx) => <td key={`td-${rIdx}-${cIdx}`}>{cell}</td>)}
                 </tr>
               ))}
             </tbody>
@@ -67,21 +59,15 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
     lines.forEach((line, idx) => {
       const trimmed = line.trim();
 
-      // Toggle code block
+      // Code block start/end
       if (trimmed.startsWith("```")) {
         if (inCodeBlock) {
-          elements.push(
-            <pre key={`code-${idx}`}>
-              <code>{codeBuffer.join("\n")}</code>
-            </pre>
+          components.push(
+            <pre key={`code-${idx}`}><code>{codeBuffer.join("\n")}</code></pre>
           );
           codeBuffer = [];
-          inCodeBlock = false;
-        } else {
-          flushList(idx);
-          flushTable(idx);
-          inCodeBlock = true;
         }
+        inCodeBlock = !inCodeBlock;
         return;
       }
 
@@ -90,7 +76,7 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
         return;
       }
 
-      // Markdown Table
+      // Table handling
       if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
         flushList(idx);
         tableBuffer.push(trimmed);
@@ -99,23 +85,21 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
         flushTable(idx);
       }
 
-      // Headings
+      // Headings (Markdown)
       if (/^#+\s/.test(trimmed)) {
         flushList(idx);
         const clean = trimmed.replace(/^#+\s*/, "").replace(/\*\*/g, "");
-        elements.push(<h4 key={`h4-${idx}`}>{clean}</h4>);
+        components.push(<h4 key={`h4-${idx}`}>{clean}</h4>);
         return;
       }
 
-      // Numbered questions
+      // Numbered questions with bold
       const numMatch = trimmed.match(/^\d+\.\s*\*\*(.*?)\*\*/);
       if (numMatch) {
         flushList(idx);
-        elements.push(<h4 key={`num-${idx}`}>{numMatch[1]}</h4>);
-        const desc = trimmed
-          .replace(/^\d+\.\s*\*\*(.*?)\*\*\s*:*/, "")
-          .trim();
-        if (desc) elements.push(<p key={`desc-${idx}`}>{desc}</p>);
+        components.push(<h4 key={`num-${idx}`}>{numMatch[1]}</h4>);
+        const desc = trimmed.replace(/^\d+\.\s*\*\*(.*?)\*\*\s*:*/, "").trim();
+        if (desc) components.push(<p key={`desc-${idx}`}>{desc}</p>);
         return;
       }
 
@@ -126,22 +110,29 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
       }
 
       flushList(idx);
+
+      // Inline code: `code`
+      const parts = trimmed.split(/(`[^`]+`)/g).map((part, idx) =>
+        part.startsWith("`") && part.endsWith("`")
+          ? <code key={`code-${idx}`}>{part.slice(1, -1)}</code>
+          : part
+      );
+
       if (trimmed) {
-        elements.push(<p key={`p-${idx}`}>{trimmed.replace(/\*\*/g, "")}</p>);
+        components.push(<p key={`p-${idx}`}>{parts}</p>);
       }
     });
 
     flushList("end");
     flushTable("end");
-    setParsedResponse(elements);
+    setParsedContent(components);
   }, [aiResponse]);
 
   const copyToClipboard = () => {
     if (!responseRef.current) return;
-    const text = responseRef.current.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      alert("Response copied to clipboard");
-    });
+    navigator.clipboard.writeText(responseRef.current.innerText).then(() =>
+      alert("Response copied to clipboard")
+    );
   };
 
   const downloadPDF = () => {
@@ -149,21 +140,22 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
     html2canvas(responseRef.current, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = pdfWidth;
-      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-      let heightLeft = imgHeight;
+      const imgProps = {
+        width: pdf.internal.pageSize.getWidth(),
+        height: (canvas.height * pdf.internal.pageSize.getWidth()) / canvas.width,
+      };
+
+      let heightLeft = imgProps.height;
       let position = 0;
 
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pdfHeight;
+      pdf.addImage(imgData, "PNG", 0, position, imgProps.width, imgProps.height);
+      heightLeft -= pdf.internal.pageSize.getHeight();
 
       while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
+        position = heightLeft - imgProps.height;
         pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pdfHeight;
+        pdf.addImage(imgData, "PNG", 0, position, imgProps.width, imgProps.height);
+        heightLeft -= pdf.internal.pageSize.getHeight();
       }
 
       pdf.save(`${selectedTopic || "notes"}.pdf`);
@@ -174,17 +166,17 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
     <div className="response-section">
       <div className="selected-topic">
         <h3>Selected Topic:</h3>
-        <p>{selectedTopic}</p>
+        <p>{selectedTopic || "None"}</p>
       </div>
 
       <h3>AI Response:</h3>
       <div className="response-controls">
-        <button onClick={copyToClipboard}>Copy Response</button>
-        <button onClick={downloadPDF}>Download Notes as PDF</button>
+        <button onClick={copyToClipboard}>📋 Copy</button>
+        <button onClick={downloadPDF}>📄 Download PDF</button>
       </div>
 
       <div ref={responseRef} className="response">
-        {parsedResponse}
+        {parsedContent}
       </div>
     </div>
   );
