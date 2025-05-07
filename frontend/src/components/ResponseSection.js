@@ -148,52 +148,68 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
   };
 
   const downloadPDF = () => {
-    if (!responseRef.current) return;
-    
-    // Store original background colors
-    const originalBackgrounds = [];
-    const elements = responseRef.current.querySelectorAll('*');
-    elements.forEach(el => {
-      originalBackgrounds.push({
-        element: el,
-        color: window.getComputedStyle(el).backgroundColor
-      });
-    });
+  if (!responseRef.current) return;
 
-    // Set white background for PDF
-    elements.forEach(el => {
-      el.style.backgroundColor = '#ffffff';
-      el.style.color = '#1e293b';
-    });
+  const input = responseRef.current;
 
-    html2canvas(responseRef.current, {
-      scale: 2,
-      backgroundColor: '#ffffff',
-      logging: false,
-      useCORS: true
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-      let position = 10;
+  // Clone the response content to preserve original
+  const clonedNode = input.cloneNode(true);
 
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(18);
-      pdf.setTextColor("#1e40af");
-      pdf.text(selectedTopic || "CSGPT Notes", pdfWidth / 2, position, { align: "center" });
-      position += 10;
-      
+  // Create a temporary container for styling
+  const tempContainer = document.createElement("div");
+  tempContainer.style.padding = "2rem";
+  tempContainer.style.backgroundColor = "#ffffff";
+  tempContainer.style.color = "#1e293b";
+  tempContainer.style.width = "900px";
+  tempContainer.style.fontFamily = "'Inter', 'Segoe UI', sans-serif";
+  tempContainer.appendChild(clonedNode);
+  document.body.appendChild(tempContainer);
+
+  // Add a heading manually for "CSGPT Notes"
+  const heading = document.createElement("h1");
+  heading.innerText = "CSGPT Notes";
+  heading.style.textAlign = "center";
+  heading.style.fontSize = "28px";
+  heading.style.color = "#1e40af";
+  heading.style.marginBottom = "20px";
+  heading.style.fontWeight = "800";
+  tempContainer.insertBefore(heading, clonedNode);
+
+  html2canvas(tempContainer, {
+    scale: 2,
+    backgroundColor: "#ffffff",
+    useCORS: true,
+    logging: false
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    let position = 10;
+    if (imgHeight < pdfHeight) {
       pdf.addImage(imgData, "PNG", 10, position, pdfWidth - 20, imgHeight);
+    } else {
+      // Handle multi-page content
+      let heightLeft = imgHeight;
+      let y = 10;
 
-      // Restore original background colors
-      originalBackgrounds.forEach(item => {
-        item.element.style.backgroundColor = item.color;
-      });
+      while (heightLeft > 0) {
+        pdf.addImage(imgData, "PNG", 10, y, pdfWidth - 20, imgHeight);
+        heightLeft -= pdfHeight;
+        if (heightLeft > 0) {
+          pdf.addPage();
+          y = 0;
+        }
+      }
+    }
 
-      pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
-    });
-  };
+    pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
+    document.body.removeChild(tempContainer); // Clean up
+  });
+};
+
 
   return (
     <div className="response-section">
