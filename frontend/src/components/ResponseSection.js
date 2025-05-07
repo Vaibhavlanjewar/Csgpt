@@ -21,7 +21,7 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     const flushList = (key) => {
       if (listBuffer.length > 0) {
         elements.push(
-          <ul key={`ul-${key}`}>
+          <ul key={`ul-${key}`} className="response-list">
             {listBuffer.map((item, idx) => (
               <li key={`li-${key}-${idx}`}>{item}</li>
             ))}
@@ -76,7 +76,7 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
         return;
       } else if (trimmed.startsWith("```") && inCodeBlock) {
         elements.push(
-          <pre key={`code-${idx}`}>
+          <pre key={`code-${idx}`} className="code-block">
             <code>{codeBuffer.join("\n")}</code>
           </pre>
         );
@@ -100,19 +100,16 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
 
       if (/^#+\s/.test(trimmed)) {
         flushList(idx);
+        const level = (trimmed.match(/#/g) || []).length;
         const clean = trimmed.replace(/^#+\s*/, "").replace(/\*\*/g, "");
-        elements.push(<h4 key={`h4-${idx}`}>{clean}</h4>);
-        return;
-      }
-
-      const numMatch = trimmed.match(/^\d+\.\s*\*\*(.*?)\*\*/);
-      if (numMatch) {
-        flushList(idx);
-        elements.push(<h4 key={`num-${idx}`}>{numMatch[1]}</h4>);
-        const desc = trimmed
-          .replace(/^\d+\.\s*\*\*(.*?)\*\*\s*:*/, "")
-          .trim();
-        if (desc) elements.push(<p key={`desc-${idx}`}>{desc}</p>);
+        const HeadingTag = `h${Math.min(6, level)}`;
+        elements.push(
+          React.createElement(
+            HeadingTag,
+            { key: `heading-${idx}`, className: "response-heading" },
+            clean
+          )
+        );
         return;
       }
 
@@ -121,9 +118,18 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
         return;
       }
 
+      if (trimmed.startsWith("- ")) {
+        listBuffer.push(trimmed.slice(2).replace(/\*\*/g, ""));
+        return;
+      }
+
       flushList(idx);
       if (trimmed) {
-        elements.push(<p key={`p-${idx}`}>{trimmed.replace(/\*\*/g, "")}</p>);
+        elements.push(
+          <p key={`p-${idx}`} className="response-paragraph">
+            {trimmed.replace(/\*\*/g, "")}
+          </p>
+        );
       }
     });
 
@@ -137,70 +143,100 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     if (!responseRef.current) return;
     const text = responseRef.current.innerText;
     navigator.clipboard.writeText(text).then(() => {
-      alert("Response copied to clipboard");
+      alert("Response copied to clipboard!");
     });
   };
 
   const downloadPDF = () => {
     if (!responseRef.current) return;
-    html2canvas(responseRef.current, { scale: 2 }).then((canvas) => {
+    
+    // Store original background colors
+    const originalBackgrounds = [];
+    const elements = responseRef.current.querySelectorAll('*');
+    elements.forEach(el => {
+      originalBackgrounds.push({
+        element: el,
+        color: window.getComputedStyle(el).backgroundColor
+      });
+    });
+
+    // Set white background for PDF
+    elements.forEach(el => {
+      el.style.backgroundColor = '#ffffff';
+      el.style.color = '#1e293b';
+    });
+
+    html2canvas(responseRef.current, {
+      scale: 2,
+      backgroundColor: '#ffffff',
+      logging: false,
+      useCORS: true
+    }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 30;
+      let position = 10;
 
+      pdf.setFont("helvetica", "bold");
       pdf.setFontSize(18);
-      pdf.setTextColor("#1f2937");
-      pdf.text("CSGPT", pdfWidth / 2, 20, { align: "center" });
-      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
-      heightLeft -= pdf.internal.pageSize.getHeight();
+      pdf.setTextColor("#1e40af");
+      pdf.text(selectedTopic || "CSGPT Notes", pdfWidth / 2, position, { align: "center" });
+      position += 10;
+      
+      pdf.addImage(imgData, "PNG", 10, position, pdfWidth - 20, imgHeight);
 
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
-        heightLeft -= pdf.internal.pageSize.getHeight();
-      }
+      // Restore original background colors
+      originalBackgrounds.forEach(item => {
+        item.element.style.backgroundColor = item.color;
+      });
 
-      pdf.save(`${selectedTopic || "notes"}.pdf`);
+      pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
     });
   };
 
   return (
     <div className="response-section">
-      <div className="selected-topic-header">
-        <div className="selected-topic-text">
-          <span>Selected Topic:</span> {selectedTopic || "No topic selected"}
+      <div className="response-header">
+        <div className="selected-topic">
+          <span className="selected-label">Selected Topic:</span>
+          <span className="topic-name">{selectedTopic || "No topic selected"}</span>
         </div>
-        <div className="response-controls">
-          <button className="control-button" onClick={copyToClipboard}>
-            <FaCopy /> Copy Response
+        <div className="action-buttons">
+          <button 
+            className="action-button copy-button"
+            onClick={copyToClipboard}
+            disabled={!aiResponse || isLoading}
+          >
+            <FaCopy className="button-icon" />
+            Copy Response
           </button>
-          <button className="control-button" onClick={downloadPDF}>
-            <FaFileDownload /> Download PDF
+          <button 
+            className="action-button download-button"
+            onClick={downloadPDF}
+            disabled={!aiResponse || isLoading}
+          >
+            <FaFileDownload className="button-icon" />
+            Download PDF
           </button>
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="loader-wrapper">
-          <div className="loader"></div>
-          <p className="loading-message">Generating response...</p>
-        </div>
-      ) : (
-        <div className="response-content" ref={responseRef}>
-          {aiResponse ? (
-            <>
-              <h1>{selectedTopic}: A Deep Dive</h1>
-              {parsedResponse}
-            </>
-          ) : (
-            <p>Select a topic to view the AI response</p>
-          )}
-        </div>
-      )}
+      <div className="response-content" ref={responseRef}>
+        {isLoading ? (
+          <div className="loading-state">
+            <div className="loading-spinner"></div>
+            <p className="loading-text">Generating response...</p>
+          </div>
+        ) : aiResponse ? (
+          <>
+            <h1 className="response-title">{selectedTopic}: A Deep Dive</h1>
+            <div className="response-body">{parsedResponse}</div>
+          </>
+        ) : (
+          <p className="empty-state">Select a topic to view the AI response</p>
+        )}
+      </div>
     </div>
   );
 };
