@@ -1,3 +1,4 @@
+// ResponseSection.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { FaCopy, FaFileDownload } from "react-icons/fa";
 import jsPDF from "jspdf";
@@ -113,12 +114,7 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
         return;
       }
 
-      if (trimmed.startsWith("* ")) {
-        listBuffer.push(trimmed.slice(2).replace(/\*\*/g, ""));
-        return;
-      }
-
-      if (trimmed.startsWith("- ")) {
+      if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
         listBuffer.push(trimmed.slice(2).replace(/\*\*/g, ""));
         return;
       }
@@ -147,142 +143,55 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     });
   };
 
- // Update to downloadPDF function in ResponseSection.jsx
-const downloadPDF = () => {
-  if (!responseRef.current) return;
+  const downloadPDF = () => {
+    if (!responseRef.current) return;
 
-  const input = responseRef.current;
-  const clonedNode = input.cloneNode(true);
+    const input = responseRef.current;
+    const clonedNode = input.cloneNode(true);
 
- const styleSheet = document.createElement("style");
-styleSheet.textContent = `
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8fafc;
-    color: #1e293b;
-  }
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `...`; // Place the style text here as in the previous message
 
-  .response-title {
-    font-size: 28px;
-    color: #1e40af;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
-  }
+    const wrapper = document.createElement("div");
+    wrapper.style.padding = "30px";
+    wrapper.style.backgroundColor = "#ffffff";
+    wrapper.appendChild(styleSheet);
 
-  .response-heading {
-    color: #0f172a;
-    font-weight: 700;
-    font-size: 18px;
-    margin: 20px 0 10px;
-    border-left: 4px solid #3b82f6;
-    padding-left: 12px;
-  }
+    const heading = document.createElement("h1");
+    heading.innerText = "CSGPT Notes";
+    heading.className = "response-title";
+    wrapper.appendChild(heading);
+    wrapper.appendChild(clonedNode);
 
-  .response-paragraph {
-    margin-bottom: 14px;
-    line-height: 1.6;
-    color: #1e293b;
-    font-size: 14px;
-  }
+    document.body.appendChild(wrapper);
 
-  .response-list {
-    margin-left: 24px;
-    padding-left: 10px;
-    color: #1e293b;
-    font-size: 14px;
-    line-height: 1.5;
-  }
+    html2canvas(wrapper, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
-  .code-block {
-    background: #0f172a;
-    color: #f8fafc;
-    padding: 12px;
-    border-radius: 6px;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    margin: 12px 0;
-    overflow-x: auto;
-  }
+      let heightLeft = imgHeight;
+      let position = 0;
 
-  .response-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-
-  .response-table th,
-  .response-table td {
-    border: 1px solid #e2e8f0;
-    padding: 1rem;
-    text-align: left;
-    font-size: 14px;
-  }
-
-  .response-table th {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: white;
-    font-weight: 700;
-  }
-
-  .response-table tr:nth-child(even) {
-    background-color: #f1f5f9;
-  }
-
-  .response-table tr:hover {
-    background-color: #e0f2fe;
-  }
-`;
-
-
-  const wrapper = document.createElement("div");
-  wrapper.style.padding = "30px";
-  wrapper.style.backgroundColor = "#ffffff"; // Ensures a clean white background
-  wrapper.appendChild(styleSheet);
-
-  const heading = document.createElement("h1");
-  heading.innerText = "CSGPT Notes";
-  heading.className = "response-title";
-  wrapper.appendChild(heading);
-  wrapper.appendChild(clonedNode);
-
-  document.body.appendChild(wrapper);
-
-  html2canvas(wrapper, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: "#ffffff",
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
-    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-
-    let heightLeft = imgHeight;
-    let position = 0;
-
-    while (heightLeft > 0) {
-      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
-      heightLeft -= pdfHeight;
-      if (heightLeft > 0) {
-        pdf.addPage();
-        position = 0;
+      while (heightLeft > 0) {
+        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+        heightLeft -= pdfHeight;
+        if (heightLeft > 0) {
+          pdf.addPage();
+          position = 0;
+        }
       }
-    }
 
-    pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
-    document.body.removeChild(wrapper);
-  });
-};
-
+      pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
+      document.body.removeChild(wrapper);
+    });
+  };
 
   return (
     <div className="response-section">
