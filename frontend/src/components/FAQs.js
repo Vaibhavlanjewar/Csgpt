@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/FAQs.css";
 
 const FAQ = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
   const faqs = [
     {
       question: "What is CsGpt?",
@@ -21,14 +23,27 @@ const FAQ = () => {
     }
   ];
 
+  const toggleFAQ = (index) => {
+    setActiveIndex(prevIndex => (prevIndex === index ? null : index));
+  };
+
   return (
-    <div className="info-section">
+    <div className="faq-container">
       <h2>Frequently Asked Questions</h2>
       <ul className="faq-list">
         {faqs.map((faq, idx) => (
-          <li key={idx}>
-            <h4>{faq.question}</h4>
-            <p>{faq.answer}</p>
+          <li
+            key={idx}
+            className={`faq-item ${activeIndex === idx ? "active" : ""}`}
+            onClick={() => toggleFAQ(idx)}
+          >
+            <div className="faq-question">
+              {faq.question}
+              <span className="arrow">{activeIndex === idx ? "▲" : "▼"}</span>
+            </div>
+            {activeIndex === idx && (
+              <div className="faq-answer">{faq.answer}</div>
+            )}
           </li>
         ))}
       </ul>
