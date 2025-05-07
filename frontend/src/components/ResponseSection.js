@@ -175,32 +175,46 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
     });
   };
 
+const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
   return (
     <div className="response-section">
-      <div className="selected-topic">
-        <h3>Selected Topic:</h3>
-        <p>{selectedTopic}</p>
-      </div>
-
-      <h3>AI Response:</h3>
-
-      <div className="response-controls">
-        <button className="full-width-button" onClick={copyToClipboard} disabled={isLoading}>
-          📋 Copy Response
-        </button>
-        <button className="full-width-button" onClick={downloadPDF} disabled={isLoading}>
-          ⬇️ Download PDF
-        </button>
+      <div className="selected-topic-header">
+        <div className="selected-topic-text">
+          <span>Selected Topic:</span> {selectedTopic || "No topic selected"}
+        </div>
+        <div className="response-controls">
+          <button className="control-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M8 17.929H6c-1.105 0-2-.912-2-2.036V5.036C4 3.91 4.895 3 6 3h8c1.105 0 2 .911 2 2.036v1.866m-6 .17h8c1.105 0 2 .91 2 2.035v10.857C20 21.09 19.105 22 18 22h-8c-1.105 0-2-.911-2-2.036V9.107c0-1.124.895-2.036 2-2.036z" />
+            </svg>
+            Copy Response
+          </button>
+          <button className="control-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download PDF
+          </button>
+        </div>
       </div>
 
       {isLoading ? (
         <div className="loader-wrapper">
-          <span className="loader"></span>
-          <p className="loading-message">Parsing response, please wait...</p>
+          <div className="loader"></div>
+          <p className="loading-message">Generating response...</p>
         </div>
       ) : (
-        <div ref={responseRef} className="response">
-          {parsedResponse}
+        <div className="response-content">
+          {aiResponse ? (
+            <>
+              <h1>{selectedTopic}: A Deep Dive</h1>
+              <div dangerouslySetInnerHTML={{ __html: aiResponse }} />
+            </>
+          ) : (
+            <p>Select a topic to view the AI response</p>
+          )}
         </div>
       )}
     </div>
