@@ -1,5 +1,3 @@
-/* ResponseSection.css */
-
 .response-section {
   padding: 1.5rem;
   max-width: 900px;
@@ -27,23 +25,24 @@
 .response-controls {
   margin: 1rem 0;
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
-.response-controls button {
-  background-color: #4a90e2;
+.full-width-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #111827;
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
-.response-controls button:hover {
-  background-color: #3a7bd5;
+.full-width-button:hover {
+  background-color: #374151;
 }
 
 .response {
@@ -53,8 +52,6 @@
   line-height: 1.6;
   overflow-x: auto;
 }
-
-/* Markdown-like styling */
 
 .response h4 {
   margin-top: 1.5rem;
@@ -121,7 +118,6 @@
 @media (max-width: 600px) {
   .response-controls {
     flex-direction: column;
-    gap: 0.75rem;
   }
 
   .response-section {
@@ -137,74 +133,48 @@
     display: block;
   }
 
-  .response-table th {
-    background-color: transparent;
-    font-weight: bold;
-  }
-
   .response-table td {
-    position: relative;
     padding-left: 50%;
     text-align: right;
+    position: relative;
   }
 
-  
   .response-table td::before {
     content: attr(data-label);
     position: absolute;
     left: 1rem;
     top: 0;
     width: 45%;
+    font-weight: bold;
     white-space: nowrap;
     text-align: left;
-    font-weight: bold;
   }
 }
 
-
-.loading-message {
-  font-style: italic;
-  color: white;
-  padding: 1rem;
-}
-
-.response-controls {
+/* Fullscreen loader */
+.fullscreen-loader {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  margin: 1rem 0;
-}
-
-.full-width-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  background-color: #111827;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: #111827;
   color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
 }
 
-.full-width-button:disabled {
-  background-color: #374151;
-  cursor: not-allowed;
-}
-
-/* Optional: Loading spinner */
-.loader {
-  width: 20px;
-  height: 20px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #38bdf8; /* Tailwind blue-400 */
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #38bdf8;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  display: inline-block;
+  margin-bottom: 1rem;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
