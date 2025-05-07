@@ -168,3 +168,43 @@
   padding: 1rem;
 }
 
+.response-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.full-width-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #111827;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.full-width-button:disabled {
+  background-color: #374151;
+  cursor: not-allowed;
+}
+
+/* Optional: Loading spinner */
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #38bdf8; /* Tailwind blue-400 */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
