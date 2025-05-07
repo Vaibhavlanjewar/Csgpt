@@ -1,4 +1,6 @@
-/* Global Styles */
+/* ============================================= */
+/* Global Styles                                 */
+/* ============================================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,12 +11,48 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'Roboto', sans-serif;
-  background-color: #103f79;
-  color: #f5f5f5;
+  background-color: #f8fafc;
+  color: #1e293b;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* App Layout */
+/* ============================================= */
+/* Typography                                    */
+/* ============================================= */
+h1, h2, h3, h4, h5, h6 {
+  color: #1e40af;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+a {
+  color: #1e40af;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #1e3a8a;
+  text-decoration: underline;
+}
+
+/* ============================================= */
+/* Utility Classes                               */
+/* ============================================= */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ============================================= */
+/* App Layout                                    */
+/* ============================================= */
 .App {
   display: flex;
   flex-direction: column;
@@ -23,7 +61,8 @@ html, body {
 
 .content-container {
   flex: 1;
-  background-color: #1e1e2f;
+  padding: 2rem;
+  background-color: #f1f5f9;
 }
 
 .content-wrapper {
@@ -35,7 +74,6 @@ html, body {
   margin: 0 auto;
 }
 
-/* Main Content Area */
 .main-content {
   flex: 1;
   min-width: 0;
@@ -47,7 +85,9 @@ html, body {
   max-height: calc(100vh - 120px);
 }
 
-/* Loading and Error States */
+/* ============================================= */
+/* Loading and Error States                      */
+/* ============================================= */
 .loading-indicator {
   display: flex;
   justify-content: center;
@@ -65,20 +105,30 @@ html, body {
   border-left: 4px solid #ff6b6b;
 }
 
-/* Scrollbar */
+/* ============================================= */
+/* Scrollbar                                     */
+/* ============================================= */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e1e2f;
+  background: #e2e8f0;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4da3ff;
+  background: #94a3b8;
   border-radius: 4px;
 }
-/* Response Section Styles */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ============================================= */
+/* Response Section                              */
+/* ============================================= */
 .response-section {
   background: linear-gradient(135deg, #0a1a2f, #021329);
   padding: 25px;
@@ -129,7 +179,6 @@ html, body {
   text-decoration: none;
   transition: color 0.2s;
 }
-
 .response-content a:hover {
   color: #82b1ff;
   text-decoration: underline;
@@ -139,7 +188,6 @@ html, body {
 .response-content ol {
   margin: 1rem 0 1rem 2rem;
 }
-
 .response-content li {
   margin-bottom: 0.5rem;
 }
@@ -163,7 +211,6 @@ html, body {
   font-size: 0.9rem;
   line-height: 1.5;
 }
-
 .response-content pre code {
   background-color: transparent;
   padding: 0;
@@ -186,7 +233,6 @@ html, body {
   margin: 1.5rem 0;
   background-color: rgba(16, 42, 90, 0.3);
 }
-
 .response-content th {
   background-color: rgba(26, 58, 95, 0.5);
   color: #82b1ff;
@@ -194,84 +240,74 @@ html, body {
   text-align: left;
   font-weight: 500;
 }
-
 .response-content td {
   padding: 10px 15px;
   border-bottom: 1px solid rgba(74, 144, 226, 0.1);
   color: #bbdefb;
 }
-
 .response-content tr:hover td {
   background-color: rgba(42, 96, 156, 0.2);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .response-section {
-    padding: 20px;
-  }
-  
-  .response-title {
-    font-size: 1.3rem;
-  }
-  
-  .response-content {
-    font-size: 0.95rem;
-  }
-  
-  .response-content pre {
-    padding: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .response-section {
-    padding: 15px;
-  }
-  
-  .response-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .response-title {
-    margin-bottom: 10px;
-  }
-  
-  .response-content ul,
-  .response-content ol {
-    margin-left: 1.5rem;
-  }
-}
-
-/* Responsive Design */
+/* ============================================= */
+/* Responsive Design                             */
+/* ============================================= */
 @media (max-width: 1024px) {
   .content-wrapper {
     flex-direction: column;
     padding: 15px;
   }
-  
   .main-content {
     max-height: none;
   }
 }
 
 @media (max-width: 768px) {
+  .content-container {
+    padding: 1rem;
+  }
+  
+  .response-section {
+    padding: 20px;
+  }
+  .response-title {
+    font-size: 1.3rem;
+  }
+  .response-content {
+    font-size: 0.95rem;
+  }
+  .response-content pre {
+    padding: 12px;
+  }
+  
   .content-wrapper {
     padding: 10px;
   }
-  
   .main-content {
     padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
+  .response-section {
+    padding: 15px;
+  }
+  .response-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .response-title {
+    margin-bottom: 10px;
+  }
+  .response-content ul,
+  .response-content ol {
+    margin-left: 1.5rem;
+  }
+  
   .content-wrapper {
     padding: 8px;
     gap: 10px;
   }
-  
   .main-content {
     padding: 10px;
   }
