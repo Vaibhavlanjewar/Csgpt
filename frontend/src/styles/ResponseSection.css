@@ -148,6 +148,7 @@
     text-align: right;
   }
 
+  
   .response-table td::before {
     content: attr(data-label);
     position: absolute;
@@ -159,3 +160,11 @@
     font-weight: bold;
   }
 }
+
+
+.loading-message {
+  font-style: italic;
+  color: #888;
+  padding: 1rem;
+}
+
