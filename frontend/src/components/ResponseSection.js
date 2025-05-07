@@ -5,13 +5,13 @@ import "../styles/ResponseSection.css";
 
 const ResponseSection = ({ selectedTopic, aiResponse }) => {
   const [parsedResponse, setParsedResponse] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // <-- Add loading state
+  const [isLoading, setIsLoading] = useState(true);
   const responseRef = useRef(null);
 
   useEffect(() => {
     if (!aiResponse) return;
 
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
 
     const timeout = setTimeout(() => {
       const lines = aiResponse.split("\n");
@@ -72,20 +72,19 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
       lines.forEach((line, idx) => {
         const trimmed = line.trim();
 
-        if (trimmed.startsWith("```")) {
-          if (inCodeBlock) {
-            elements.push(
-              <pre key={`code-${idx}`}>
-                <code>{codeBuffer.join("\n")}</code>
-              </pre>
-            );
-            codeBuffer = [];
-            inCodeBlock = false;
-          } else {
-            flushList(idx);
-            flushTable(idx);
-            inCodeBlock = true;
-          }
+        if (trimmed.startsWith("```") && !inCodeBlock) {
+          flushList(idx);
+          flushTable(idx);
+          inCodeBlock = true;
+          return;
+        } else if (trimmed.startsWith("```") && inCodeBlock) {
+          elements.push(
+            <pre key={`code-${idx}`}>
+              <code>{codeBuffer.join("\n")}</code>
+            </pre>
+          );
+          codeBuffer = [];
+          inCodeBlock = false;
           return;
         }
 
@@ -135,8 +134,8 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
       flushTable("end");
 
       setParsedResponse(elements);
-      setIsLoading(false); // End loading
-    }, 400); // small delay to simulate parsing
+      setIsLoading(false);
+    }, 400);
 
     return () => clearTimeout(timeout);
   }, [aiResponse]);
@@ -157,8 +156,11 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const imgHeight = (canvas.height * pdfWidth) / canvas.width;
       let heightLeft = imgHeight;
-      let position = 0;
+      let position = 30;
 
+      pdf.setFontSize(18);
+      pdf.setTextColor("#1f2937");
+      pdf.text("CSGPT", pdfWidth / 2, 20, { align: "center" });
       pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
       heightLeft -= pdf.internal.pageSize.getHeight();
 
@@ -181,26 +183,21 @@ const ResponseSection = ({ selectedTopic, aiResponse }) => {
       </div>
 
       <h3>AI Response:</h3>
-  <div className="response-controls">
-  <button className="full-width-button" onClick={copyToClipboard} disabled={isLoading}>
-    {isLoading ? (
-      <span className="loader"></span>
-    ) : (
-      "📋 Copy Response"
-    )}
-  </button>
-  <button className="full-width-button" onClick={downloadPDF} disabled={isLoading}>
-    {isLoading ? (
-      <span className="loader"></span>
-    ) : (
-      "⬇️ Download PDF"
-    )}
-  </button>
-</div>
 
+      <div className="response-controls">
+        <button className="full-width-button" onClick={copyToClipboard} disabled={isLoading}>
+          📋 Copy Response
+        </button>
+        <button className="full-width-button" onClick={downloadPDF} disabled={isLoading}>
+          ⬇️ Download PDF
+        </button>
+      </div>
 
       {isLoading ? (
-        <div className="loading-message">Parsing response, please wait...</div>
+        <div className="loader-wrapper">
+          <span className="loader"></span>
+          <p className="loading-message">Parsing response, please wait...</p>
+        </div>
       ) : (
         <div ref={responseRef} className="response">
           {parsedResponse}
