@@ -8,7 +8,6 @@ import AuthForm from "./components/AuthForm";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import ResponseSection from "./components/ResponseSection";
-// import ProgressTracker from "./components/ProgressTracker";
 import AboutUs from "./components/AboutUs";
 import FAQs from "./components/FAQs";
 import Footer from "./components/Footer";
@@ -19,7 +18,8 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState("");
   const [aiResponse, setAIResponse] = useState("");
-  const [progress, setProgress] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -28,57 +28,61 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  const generatePrompt = (topic) => {
+    return `As an AI-powered Computer Science educator, provide a comprehensive explanation of "${topic}" with:
+
+1. **Fundamental Concepts** (200-300 words)
+   - Core definition and purpose
+   - Key characteristics and components
+   - Theoretical foundations
+
+2. **Practical Applications** (150-250 words)
+   - Real-world use cases
+   - Industry implementations
+   - Academic relevance
+
+3. **Technical Implementation**
+   - Code examples in Python, Java, and C++
+   - Algorithm analysis (time/space complexity where applicable)
+   - Common implementation patterns
+
+4. **Comparison & Relationships**
+   - Similar/different concepts
+   - Advantages/disadvantages
+   - Complementary technologies
+
+5. **Interview Preparation**
+   - 15-20 common interview questions
+   - Detailed answers with examples
+   - Common pitfalls and best practices
+
+6. **Learning Resources**
+   - Recommended books/papers
+   - Online tutorials/courses
+   - Practice exercises
+
+Format response in Markdown with clear section headings, code blocks (\`\`\`language), bullet points, and emphasis where needed.`;
+  };
+
   const handleTopicClick = async (topic) => {
     setSelectedTopic(topic);
-
-    const prompt = `You are an AI-powered educational assistant built to help Computer Science students, interviewees, and professionals deeply understand technical topics.
-
-Please explain the topic: **"${topic}"** with the following structure and depth:
-
-1. ✅ **Analogy-Based Introduction**
-   - Start with a beginner-friendly analogy or metaphor that simplifies the topic.
-   - Make it relatable for students, researchers, and developers.
-
-2. ✅ **Detailed Conceptual Theory**
-   - Provide structured explanations, including prerequisite knowledge.
-   - Add variations, real-world applications in academia & industry.
-
-3. ✅ **Code Examples in Multiple Languages**
-   - Show practical implementations in **Python, Java, C++, and C, and SQL if required in database and SQL questions**.
-   - For each snippet, explain logic and purpose.
-
-4. ✅ **Important Conceptual Notes**
-   - Summarize 8–10 critical takeaways, formulas, key points.
-
-5. ✅ **25+ Common Interview Questions and Answers**
-   - List 25+ technical interview questions.
-   - Explain detailed answers with code and reasoning.
-
-6. ✅ **Bonus (Optional)**
-   - Include simple visuals, ASCII diagrams, pseudocode or flowcharts if helpful.
-   - Suggest further reading or tools if relevant.
-
-🧠 Format the entire content in **clear Markdown** using headings, lists, code blocks (\`\`\`), and emphasis.
-
-🎯 Suitable for:
-- University learners
-- Technical interview prep
-- Self-paced AI learning`;
-
-    const backendUrl =
-      process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    setIsLoading(true);
+    setError(null);
 
     try {
-      const response = await axios.post(`${backendUrl}/api/ask-ai`, { prompt });
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+      const response = await axios.post(`${backendUrl}/api/ask-ai`, {
+        prompt: generatePrompt(topic)
+      });
       setAIResponse(response.data.response);
-      setProgress((prev) => (prev + 10) % 100);
     } catch (error) {
       console.error("Error fetching AI response:", error);
-      setAIResponse("Failed to fetch AI response.");
+      setError("Failed to fetch response. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // 🛠️ Move the auth guard HERE — not inside handleTopicClick!
   if (!isAuthenticated) {
     return <AuthForm onLogin={() => setIsAuthenticated(true)} />;
   }
@@ -87,25 +91,31 @@ Please explain the topic: **"${topic}"** with the following structure and depth:
     <Router>
       <div className="App">
         <Navbar onLogout={() => setIsAuthenticated(false)} />
-        <div className="content">
-          <Sidebar onTopicClick={handleTopicClick} />
-          <div className="main-content" style={{ overflowY: "auto", maxHeight: "calc(100vh - 120px)" }}>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <ResponseSection selectedTopic={selectedTopic} aiResponse={aiResponse} />
-                    {/* <ProgressTracker progress={progress} /> */}
-                    <AboutUs />
-                    <FAQs />
-                    <Footer />
-                  </>
-                }
-              />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/faqs" element={<FAQs />} />
-            </Routes>
+        <div className="content-wrapper">
+          <div className="content">
+            <Sidebar onTopicClick={handleTopicClick} />
+            <div className="main-content">
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <>
+                      <ResponseSection 
+                        selectedTopic={selectedTopic} 
+                        aiResponse={aiResponse}
+                        isLoading={isLoading}
+                        error={error}
+                      />
+                      <AboutUs />
+                      <FAQs />
+                      <Footer />
+                    </>
+                  }
+                />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/faqs" element={<FAQs />} />
+              </Routes>
+            </div>
           </div>
         </div>
       </div>
