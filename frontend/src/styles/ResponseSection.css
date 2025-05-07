@@ -124,22 +124,10 @@
   font-weight: 700;
 }
 
-.response-heading:nth-of-type(1) { 
-  font-size: 1.8rem;
-  color: #7ee8fa;
-}
-.response-heading:nth-of-type(2) { 
-  font-size: 1.5rem;
-  color: #93c5fd;
-}
-.response-heading:nth-of-type(3) { 
-  font-size: 1.3rem;
-  color: #a5b4fc;
-}
-.response-heading:nth-of-type(4) { 
-  font-size: 1.1rem;
-  color: #c7d2fe;
-}
+.response-heading:nth-of-type(1) { font-size: 1.8rem; color: #7ee8fa; }
+.response-heading:nth-of-type(2) { font-size: 1.5rem; color: #93c5fd; }
+.response-heading:nth-of-type(3) { font-size: 1.3rem; color: #a5b4fc; }
+.response-heading:nth-of-type(4) { font-size: 1.1rem; color: #c7d2fe; }
 
 .response-paragraph {
   margin-bottom: 1.25rem;
@@ -171,35 +159,34 @@
 }
 
 .response-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      overflow: hidden;
-    }
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
 
-    .response-table th,
-    .response-table td {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem;
-      text-align: left;
-    }
+.response-table th,
+.response-table td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  text-align: left;
+}
 
-    .response-table th {
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
-      color: white;
-      font-weight: 700;
-    }
+.response-table th {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  font-weight: 700;
+}
 
-    .response-table tr:nth-child(even) {
-      background: rgba(255, 255, 255, 0.03);
-    }
+.response-table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
 
-    .response-table tr:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
-  `;
+.response-table tr:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
 
 /* ============================================= */
 /* Loading & Empty States                        */
@@ -255,23 +242,23 @@
   .response-section {
     padding: 1.75rem;
   }
-  
+
   .response-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.25rem;
   }
-  
+
   .action-buttons {
     width: 100%;
   }
-  
+
   .action-button {
     flex: 1;
     justify-content: center;
     padding: 0.85rem;
   }
-  
+
   .response-title {
     font-size: 1.7rem;
   }
@@ -282,16 +269,16 @@
     padding: 1.25rem;
     border-radius: 10px;
   }
-  
+
   .action-button {
     padding: 0.7rem;
     font-size: 0.9rem;
   }
-  
+
   .response-title {
     font-size: 1.5rem;
   }
-  
+
   .response-heading:nth-of-type(1) { font-size: 1.5rem; }
   .response-heading:nth-of-type(2) { font-size: 1.3rem; }
   .response-heading:nth-of-type(3) { font-size: 1.1rem; }
