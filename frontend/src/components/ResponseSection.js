@@ -154,76 +154,93 @@ const downloadPDF = () => {
   const input = responseRef.current;
   const clonedNode = input.cloneNode(true);
 
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = `
-    body {
-      margin: 0;
-      padding: 0;
-    }
+ const styleSheet = document.createElement("style");
+styleSheet.textContent = `
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+  }
 
-    .response-title {
-      font-size: 24px;
-      color: #1e40af;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  .response-title {
+    font-size: 28px;
+    color: #1e40af;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
 
-    .response-heading {
-      color: #1e293b;
-      font-weight: bold;
-      margin: 16px 0 8px;
-    }
+  .response-heading {
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 20px 0 10px;
+    border-left: 4px solid #3b82f6;
+    padding-left: 12px;
+  }
 
-    .response-paragraph {
-      margin-bottom: 10px;
-      color: #1e293b;
-    }
+  .response-paragraph {
+    margin-bottom: 14px;
+    line-height: 1.6;
+    color: #1e293b;
+    font-size: 14px;
+  }
 
-    .response-list {
-      margin-left: 20px;
-      color: #1e293b;
-    }
+  .response-list {
+    margin-left: 24px;
+    padding-left: 10px;
+    color: #1e293b;
+    font-size: 14px;
+    line-height: 1.5;
+  }
 
-    .code-block {
-      background: #0f172a;
-      color: #f8fafc;
-      padding: 10px;
-      border-radius: 6px;
-      font-family: monospace;
-      font-size: 12px;
-    }
+  .code-block {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    margin: 12px 0;
+    overflow-x: auto;
+  }
 
-    .response-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      overflow: hidden;
-    }
+  .response-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
 
-    .response-table th,
-    .response-table td {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem;
-      text-align: left;
-    }
+  .response-table th,
+  .response-table td {
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+    text-align: left;
+    font-size: 14px;
+  }
 
-    .response-table th {
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
-      color: white;
-      font-weight: 700;
-    }
+  .response-table th {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    font-weight: 700;
+  }
 
-    .response-table tr:nth-child(even) {
-      background: rgba(255, 255, 255, 0.03);
-    }
+  .response-table tr:nth-child(even) {
+    background-color: #f1f5f9;
+  }
 
-    .response-table tr:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
-  `;
+  .response-table tr:hover {
+    background-color: #e0f2fe;
+  }
+`;
+
 
   const wrapper = document.createElement("div");
   wrapper.style.padding = "30px";
