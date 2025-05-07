@@ -29,45 +29,22 @@ function App() {
   }, []);
 
   const generatePrompt = (topic) => {
-    return `As an AI-powered Computer Science educator, provide a comprehensive explanation of "${topic}" with:
+    return `As a Computer Science expert, provide a detailed explanation of "${topic}" covering:
 
-1. **Fundamental Concepts** (200-300 words)
-   - Core definition and purpose
-   - Key characteristics and components
-   - Theoretical foundations
+1. **Core Concept** (Clear definition and purpose)
+2. **Technical Details** (How it works under the hood)
+3. **Implementation** (Code examples in relevant languages)
+4. **Real-world Applications** (Where and why it's used)
+5. **Common Interview Questions** (With concise answers)
 
-2. **Practical Applications** (150-250 words)
-   - Real-world use cases
-   - Industry implementations
-   - Academic relevance
-
-3. **Technical Implementation**
-   - Code examples in Python, Java, and C++
-   - Algorithm analysis (time/space complexity where applicable)
-   - Common implementation patterns
-
-4. **Comparison & Relationships**
-   - Similar/different concepts
-   - Advantages/disadvantages
-   - Complementary technologies
-
-5. **Interview Preparation**
-   - 15-20 common interview questions
-   - Detailed answers with examples
-   - Common pitfalls and best practices
-
-6. **Learning Resources**
-   - Recommended books/papers
-   - Online tutorials/courses
-   - Practice exercises
-
-Format response in Markdown with clear section headings, code blocks (\`\`\`language), bullet points, and emphasis where needed.`;
+Format response in clean Markdown with proper headings and code blocks.`;
   };
 
   const handleTopicClick = async (topic) => {
     setSelectedTopic(topic);
     setIsLoading(true);
     setError(null);
+    setAIResponse("");
 
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
@@ -77,7 +54,7 @@ Format response in Markdown with clear section headings, code blocks (\`\`\`lang
       setAIResponse(response.data.response);
     } catch (error) {
       console.error("Error fetching AI response:", error);
-      setError("Failed to fetch response. Please try again later.");
+      setError("Failed to fetch response. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -91,8 +68,8 @@ Format response in Markdown with clear section headings, code blocks (\`\`\`lang
     <Router>
       <div className="App">
         <Navbar onLogout={() => setIsAuthenticated(false)} />
-        <div className="content-wrapper">
-          <div className="content">
+        <div className="content-container">
+          <div className="content-wrapper">
             <Sidebar onTopicClick={handleTopicClick} />
             <div className="main-content">
               <Routes>
