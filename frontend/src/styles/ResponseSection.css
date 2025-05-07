@@ -1,178 +1,161 @@
-/* Response Section */
+/* ResponseSection.css */
+
 .response-section {
-  flex: 1;
-  background-color: #ffffff;
-  color: #f3eaea;
-  padding: 26px;
-  border-radius: 10px;
-  margin-left: 10px;
-  box-shadow: 5px 2px 8px rgba(37, 78, 120, 0.1);
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
-  font-family: "Segoe UI", sans-serif;
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  color: #333;
 }
 
-/* Container around the selected topic */
 .selected-topic {
-  background-color: #8492a6; 
-  color:#0b1e36;
-  align-items: center;
-  padding: 5px 10px;
-  border-radius: 13px;
-  margin: 15px 100px 15px;
-  font-size: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f0f4ff;
+  border-left: 4px solid #4a90e2;
+  border-radius: 8px;
 }
 
-/* Text styles for both the label and the value */
-.selected-topic h3,
-.selected-topic p {
-  color: #c8a3a3;     /* White text */
-  margin: 4px;
-  padding: 8px 10px;
-  font-weight: 600;
-  font-size: rem;    /* Keep font size uniform */
+.selected-topic h3 {
+  margin: 0 0 0.5rem 0;
+  color: #1a3e8c;
 }
 
-/* Slight spacing between label and value */
-.selected-topic p {
-  margin-left: 15px;
-}
-
-
-/* Prompt text (AI response) */
-.response-section h3:not(:first-of-type) {
-  color: #c7d3e2;
-  font-size: 1.2rem;
-  margin: 20px 0 10px;
-}
-
-/* Improved styling for the prompt */
-.response-section p {
-  margin: 0 0 10px 0;
-  line-height: 1.7;
-  color: #222;
-}
-
-/* Controls (buttons) */
 .response-controls {
+  margin: 1rem 0;
   display: flex;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 15px;
 }
 
 .response-controls button {
-  background-color: #0b1e36;
+  background-color: #4a90e2;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .response-controls button:hover {
-  background-color: #003b6f;
+  background-color: #3a7bd5;
 }
 
-/* Content display */
 .response {
-  background-color: #f9f9f9;
-  padding: 18px;
+  background-color: #ffffff;
+  padding: 1rem;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
+  line-height: 1.6;
+  overflow-x: auto;
 }
+
+/* Markdown-like styling */
 
 .response h4 {
-  font-size: 1.05rem;
-  margin-top: 20px;
-  color: #0b1e36;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
 }
 
-/* Lists */
+.response p {
+  margin-bottom: 0.9rem;
+}
+
 .response ul {
-  padding-left: 20px;
-  margin: 10px 0;
+  padding-left: 1.2rem;
+  list-style: disc;
+  margin-bottom: 1rem;
 }
 
-.response ul li {
-  line-height: 1.6;
-  margin-bottom: 6px;
-}
-
-/* Code blocks */
-.response pre {
-  background-color: #1f2937;
-  color: #f3f4f6;
-  padding: 12px;
-  border-radius: 5px;
-  overflow-x: auto;
-  font-size: 0.9rem;
-  margin: 15px 0;
+.response li {
+  margin-bottom: 0.4rem;
 }
 
 .response code {
-  font-family: "Courier New", Courier, monospace;
+  background-color: #f4f4f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: #c7254e;
 }
 
-/* Tables */
+.response pre {
+  background-color: #272822;
+  color: #f8f8f2;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
 .response-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 16px 0;
-  background-color: #ffffff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
 .response-table th,
 .response-table td {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 0.6rem 0.8rem;
   text-align: left;
 }
 
 .response-table th {
-  background-color: #f1f5f9;
-  color: #0b1e36;
-  font-weight: 600;
+  background-color: #f2f2f2;
+  color: #333;
 }
 
-.response-table tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .response-section {
-    margin-left: 0;
-    margin-top: 20px;
-    max-height: none;
-  }
-
+@media (max-width: 600px) {
   .response-controls {
     flex-direction: column;
-    align-items: flex-start;
+    gap: 0.75rem;
   }
 
-  .response-controls button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
   .response-section {
-    padding: 16px;
+    padding: 1rem;
   }
 
-  .response pre {
-    font-size: 0.85rem;
-  }
-
+  .response-table,
+  .response-table thead,
+  .response-table tbody,
   .response-table th,
+  .response-table td,
+  .response-table tr {
+    display: block;
+  }
+
+  .response-table th {
+    background-color: transparent;
+    font-weight: bold;
+  }
+
   .response-table td {
-    padding: 8px;
-    font-size: 0.85rem;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+  }
+
+  .response-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    width: 45%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
   }
 }
