@@ -169,7 +169,7 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
         margin-bottom: 2rem !important;
         padding-bottom: 0.75rem !important;
         font-weight: 800 !important;
-        color: #00d4ff !important;
+        color: #F0E6A8 !important;
         position: relative;
         text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
       }
