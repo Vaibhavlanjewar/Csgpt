@@ -1,4 +1,4 @@
-# 🔹 BTech Prep Buddy
+# 🔹 CsGpt
 
 Computer Science and IT students often face challenges when preparing for core subjects like **Operating Systems**, **Database Management Systems**, **Computer Networks**, and various programming languages including **Object-Oriented Programming**.
 
