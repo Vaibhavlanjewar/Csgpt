@@ -29,16 +29,62 @@ function App() {
   }, []);
 
   const generatePrompt = (topic) => {
-    return `As a Computer Science expert, provide a detailed explanation of "${topic}" covering:
+  return `As a Computer Science expert, provide an in-depth technical guide on the topic: "${topic}" covering the following aspects:
 
-1. **Core Concept** (Clear definition and purpose)
-2. **Technical Details** (How it works under the hood)
-3. **Implementation** (Code examples in relevant languages)
-4. **Real-world Applications** (Where and why it's used)
-5. **Common Interview Questions** (With concise answers)
+1. **Core Concept**  
+   - Provide a clear, concise, and formal definition.
+   - Include historical background or origin if relevant.
+   - Use examples or analogies to explain intuitively.
 
-Format response in clean Markdown with proper headings and code blocks.`;
-  };
+2. **Technical Details**  
+   - Explain how it works under the hood (internal mechanisms, protocols, algorithms, etc.).
+   - Use diagrams or architectural visuals where applicable.
+   - Include performance considerations or trade-offs.
+
+3. **Implementation**  
+   - Provide step-by-step code examples in relevant programming languages (JavaScript, Python, Java, C++, etc.).
+   - Annotate the code thoroughly and explain logic clearly.
+   - If applicable, build a small project or module to demonstrate.
+
+4. **Comparisons and Alternatives**  
+   - Provide a comparison table of this concept vs alternatives (e.g., Firebase vs Supabase, SQL vs NoSQL, etc.).
+   - Highlight use-case-specific recommendations.
+
+5. **Real-world Applications**  
+   - Explain where and how this is used in real-world systems (startups, enterprises, tech giants).
+   - Include case studies or well-known implementations if possible.
+
+6. **Best Practices & Pitfalls**  
+   - List the dos and don’ts while implementing or working with this concept.
+   - Include debugging or optimization tips.
+
+7. **Interview Questions (25+)**  
+   - Group questions into Beginner, Intermediate, and Advanced levels.
+   - For each, provide:
+     - A clear question statement.
+     - An in-depth answer with explanation.
+     - Full code (if needed) and complexity analysis.
+   - Make sure the questions are aligned with top tech companies (FAANG, etc.).
+
+8. **Further Reading & References**  
+   - Include official documentation links, blog posts, and research papers.
+   - Suggest GitHub repositories, tools, or courses for deeper learning.
+
+9. **Bonus: Expert Insights**  
+   - Add your own ideas, edge cases, performance tips, or creative uses.
+   - Suggest how this topic evolves or what the future trends are.
+
+📝 Format the entire response like a well-structured **Markdown blog post**, using:
+- Clear headings and subheadings
+- Bullet points and numbered lists
+- Code blocks for code samples
+- Tables for comparisons
+- Diagrams where appropriate (describe the diagram or use Mermaid.js if needed)
+- Clean language for beginners yet insightful for professionals
+
+Target audience: developers from beginner to pro, preparing for interviews or building projects.`;
+};
+
 
   const handleTopicClick = async (topic) => {
     setSelectedTopic(topic);
