@@ -29,61 +29,55 @@ function App() {
   }, []);
 
   const generatePrompt = (topic) => {
-  return `As a Computer Science expert, provide an in-depth technical guide on the topic: "${topic}" covering the following aspects:
+  return `As a Computer Science expert, provide a comprehensive and in-depth explanation of "${topic}" covering the following:
 
 1. **Core Concept**  
-   - Provide a clear, concise, and formal definition.
-   - Include historical background or origin if relevant.
-   - Use examples or analogies to explain intuitively.
+   - Clear definition and purpose  
+   - Historical background or context (if relevant)
 
 2. **Technical Details**  
-   - Explain how it works under the hood (internal mechanisms, protocols, algorithms, etc.).
-   - Use diagrams or architectural visuals where applicable.
-   - Include performance considerations or trade-offs.
+   - How it works under the hood  
+   - Architectural insights, flowcharts, or system diagrams
 
 3. **Implementation**  
-   - Provide step-by-step code examples in relevant programming languages (JavaScript, Python, Java, C++, etc.).
-   - Annotate the code thoroughly and explain logic clearly.
-   - If applicable, build a small project or module to demonstrate.
+   - Code examples in relevant programming languages (e.g., JavaScript, Python, Java)  
+   - Explain each code block line-by-line  
+   - Include project setup steps, configurations, and integration tips
 
-4. **Comparisons and Alternatives**  
-   - Provide a comparison table of this concept vs alternatives (e.g., Firebase vs Supabase, SQL vs NoSQL, etc.).
-   - Highlight use-case-specific recommendations.
+4. **Real-world Applications**  
+   - Use cases in industry  
+   - How companies or domains benefit from this  
+   - Example scenarios
 
-5. **Real-world Applications**  
-   - Explain where and how this is used in real-world systems (startups, enterprises, tech giants).
-   - Include case studies or well-known implementations if possible.
+5. **Comparative Analysis**  
+   - Include tables to compare with alternatives (e.g., Firebase vs Supabase)  
+   - Discuss trade-offs and performance considerations
 
-6. **Best Practices & Pitfalls**  
-   - List the dos and don’ts while implementing or working with this concept.
-   - Include debugging or optimization tips.
+6. **Best Practices and Pitfalls**  
+   - Performance optimization techniques  
+   - Common mistakes and how to avoid them  
+   - Security or scalability considerations
 
-7. **Interview Questions (25+)**  
-   - Group questions into Beginner, Intermediate, and Advanced levels.
-   - For each, provide:
-     - A clear question statement.
-     - An in-depth answer with explanation.
-     - Full code (if needed) and complexity analysis.
-   - Make sure the questions are aligned with top tech companies (FAANG, etc.).
+7. **25+ Interview Questions (Grouped by Level)**  
+   - Beginner: Basic conceptual questions  
+   - Intermediate: Design-oriented or semi-coding  
+   - Advanced: Algorithmic, coding-heavy, or real-world problem-solving  
+   - Provide code, explanation, and complexity analysis if needed
 
-8. **Further Reading & References**  
-   - Include official documentation links, blog posts, and research papers.
-   - Suggest GitHub repositories, tools, or courses for deeper learning.
+8. **Project Ideas**  
+   - Suggest 3–5 real-world mini-projects or capstone ideas related to the topic
 
-9. **Bonus: Expert Insights**  
-   - Add your own ideas, edge cases, performance tips, or creative uses.
-   - Suggest how this topic evolves or what the future trends are.
+9. **References**  
+   - Link to official documentation, tools, blogs, videos, and whitepapers  
+   - Mention your expert tips or hidden tricks
 
-📝 Format the entire response like a well-structured **Markdown blog post**, using:
-- Clear headings and subheadings
-- Bullet points and numbered lists
-- Code blocks for code samples
-- Tables for comparisons
-- Diagrams where appropriate (describe the diagram or use Mermaid.js if needed)
-- Clean language for beginners yet insightful for professionals
-
-Target audience: developers from beginner to pro, preparing for interviews or building projects.`;
+10. **Format**  
+    - Clean and well-structured Markdown  
+    - Use proper headings, code blocks, bullet lists, diagrams, tables, and quotes where helpful  
+    - Tone should be professional but easy to follow for beginners and pros alike
+`;
 };
+
 
 
   const handleTopicClick = async (topic) => {
