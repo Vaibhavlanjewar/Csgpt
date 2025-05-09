@@ -278,6 +278,13 @@
   .response-title {
     font-size: 1.5rem;
   }
+  @media (max-width: 480px) {
+  .sidebar-container,
+  .response-section {
+    margin-bottom: 1.25rem;
+  }
+}
+
 
   .response-heading:nth-of-type(1) { font-size: 1.5rem; }
   .response-heading:nth-of-type(2) { font-size: 1.3rem; }
