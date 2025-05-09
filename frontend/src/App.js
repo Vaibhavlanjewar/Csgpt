@@ -49,7 +49,7 @@ Format response in clean Markdown with proper headings and code blocks.`;
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
       const response = await axios.post(`${backendUrl}/api/ask-ai`, {
-        prompt: generatePrompt(topic)
+        prompt: generatePrompt(topic),
       });
       setAIResponse(response.data.response);
     } catch (error) {
@@ -76,17 +76,12 @@ Format response in clean Markdown with proper headings and code blocks.`;
                 <Route
                   path="/"
                   element={
-                    <>
-                      <ResponseSection 
-                        selectedTopic={selectedTopic} 
-                        aiResponse={aiResponse}
-                        isLoading={isLoading}
-                        error={error}
-                      />
-                      <AboutUs />
-                      <FAQs />
-                      <Footer />
-                    </>
+                    <ResponseSection
+                      selectedTopic={selectedTopic}
+                      aiResponse={aiResponse}
+                      isLoading={isLoading}
+                      error={error}
+                    />
                   }
                 />
                 <Route path="/about" element={<AboutUs />} />
@@ -95,6 +90,7 @@ Format response in clean Markdown with proper headings and code blocks.`;
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </Router>
   );
