@@ -143,55 +143,225 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     });
   };
 
-  const downloadPDF = () => {
-    if (!responseRef.current) return;
+ const downloadPDF = () => {
+  if (!responseRef.current) return;
 
-    const input = responseRef.current;
-    const clonedNode = input.cloneNode(true);
+  const input = responseRef.current;
+  const clonedNode = input.cloneNode(true);
 
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = `...`; // Place the style text here as in the previous message
-
-    const wrapper = document.createElement("div");
-    wrapper.style.padding = "30px";
-    wrapper.style.backgroundColor = "#ffffff";
-    wrapper.appendChild(styleSheet);
-
-    const heading = document.createElement("h1");
-    heading.innerText = "CSGPT Notes";
-    heading.className = "response-title";
-    wrapper.appendChild(heading);
-    wrapper.appendChild(clonedNode);
-
-    document.body.appendChild(wrapper);
-
-    html2canvas(wrapper, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      while (heightLeft > 0) {
-        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
-        heightLeft -= pdfHeight;
-        if (heightLeft > 0) {
-          pdf.addPage();
-          position = 0;
-        }
+  // Create a style element with all our CSS
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
+    .response-section {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      padding: 2.5rem;
+      margin: 0 auto;
+      max-width: 900px;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      color: #e0f7ff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .response-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .selected-topic {
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+    }
+    .selected-label {
+      color: #a5b4fc;
+      margin-right: 0.75rem;
+      font-weight: 500;
+    }
+    .topic-name {
+      background: linear-gradient(90deg, #00d4ff, #7e5bef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    .action-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .copy-button {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+    }
+    .download-button {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e0f7ff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .button-icon {
+      font-size: 1rem;
+    }
+    .response-content {
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+    .response-title {
+      font-size: 2rem;
+      background: linear-gradient(90deg, #00d4ff, #7e5bef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      font-weight: 800;
+    }
+    .response-heading {
+      margin: 2rem 0 1.25rem;
+      font-weight: 700;
+    }
+    .response-heading:nth-of-type(1) { font-size: 1.8rem; color: #7ee8fa; }
+    .response-heading:nth-of-type(2) { font-size: 1.5rem; color: #93c5fd; }
+    .response-heading:nth-of-type(3) { font-size: 1.3rem; color: #a5b4fc; }
+    .response-heading:nth-of-type(4) { font-size: 1.1rem; color: #c7d2fe; }
+    .response-paragraph {
+      margin-bottom: 1.25rem;
+      color: #e0f7ff;
+    }
+    .response-list {
+      margin: 1.25rem 0 1.25rem 2rem;
+      list-style-type: disc;
+    }
+    .response-list li {
+      margin-bottom: 0.75rem;
+      color: #e0f7ff;
+    }
+    .code-block {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #f0fdfa;
+      padding: 1.25rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 2rem 0;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    .response-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .response-table th,
+    .response-table td {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      text-align: left;
+    }
+    .response-table th {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      font-weight: 700;
+    }
+    .response-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .response-table tr:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    @media print {
+      .action-buttons {
+        display: none;
       }
+    }
+  `;
 
-      pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
-      document.body.removeChild(wrapper);
-    });
-  };
+  const wrapper = document.createElement("div");
+  wrapper.className = "response-section";
+  wrapper.appendChild(styleSheet);
+  wrapper.appendChild(clonedNode);
+
+  // Hide the action buttons in the PDF
+  const buttons = wrapper.querySelector(".action-buttons");
+  if (buttons) {
+    buttons.style.display = "none";
+  }
+
+  // Set a fixed width for the PDF content
+  wrapper.style.width = "900px";
+  wrapper.style.margin = "0 auto";
+  wrapper.style.padding = "30px";
+  wrapper.style.backgroundColor = "#0f0c29";
+
+  document.body.appendChild(wrapper);
+
+  // Use html2canvas with improved settings
+  html2canvas(wrapper, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: "#0f0c29",
+    logging: false,
+    allowTaint: true,
+    letterRendering: true,
+    onclone: (clonedDoc) => {
+      // Ensure fonts are loaded
+      const style = clonedDoc.createElement("style");
+      style.textContent = `
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+      `;
+      clonedDoc.head.appendChild(style);
+    }
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pdfWidth - 20; // Add margins
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 10; // Top margin
+    let pageCount = 1;
+
+    pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+    heightLeft -= pdfHeight;
+
+    // Add new pages if content is longer than one page
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
+      pageCount++;
+    }
+
+    pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
+    document.body.removeChild(wrapper);
+  });
+};
 
   return (
     <div className="response-section">
