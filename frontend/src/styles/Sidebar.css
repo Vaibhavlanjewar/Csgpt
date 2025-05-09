@@ -123,3 +123,11 @@
     max-width: 300px;
   }
 }
+
+@media (max-width: 480px) {
+  .sidebar-container,
+  .response-section {
+    margin-bottom: 1.25rem;
+  }
+}
+
