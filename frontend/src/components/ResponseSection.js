@@ -291,64 +291,96 @@ const downloadPDF = () => {
     @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
   `;
 
-  // Create a wrapper div to hold our content and styles
+ // Create wrapper div for PDF content
   const wrapper = document.createElement("div");
-  wrapper.className = "response-section";
+  wrapper.className = "response-section pdf-export";
+  wrapper.style.width = "900px";
+  wrapper.style.margin = "0 auto";
+  wrapper.style.padding = "40px";
+  wrapper.style.backgroundColor = "#0f0c29";
   wrapper.appendChild(styleSheet);
   wrapper.appendChild(clonedNode);
 
-  // Set dimensions and styling for PDF
-  wrapper.style.width = "900px";
-  wrapper.style.margin = "0 auto";
-  wrapper.style.padding = "30px";
-  wrapper.style.backgroundColor = "#0f0c29";
+  // Hide action buttons in PDF
+  const actionButtons = wrapper.querySelector('.action-buttons');
+  if (actionButtons) actionButtons.style.display = 'none';
 
-  // Temporarily add to document for rendering
+  // Add to document temporarily
   document.body.appendChild(wrapper);
 
-  // Use html2canvas with enhanced settings
-  html2canvas(wrapper, {
-    scale: 3, // Higher scale for better quality
-    useCORS: true,
-    backgroundColor: "#0f0c29",
-    logging: false,
-    allowTaint: true,
-    letterRendering: true,
-    onclone: (clonedDoc) => {
-      // Ensure fonts are loaded in the cloned document
-      const style = clonedDoc.createElement("style");
-      style.textContent = `
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-      `;
-      clonedDoc.head.appendChild(style);
-    }
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pdfWidth - 20; // Add margins
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  // Initialize PDF
+  const pdf = new jsPDF("p", "mm", "a4");
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = pdf.internal.pageSize.getHeight();
+  const pageMargin = 10; // 10mm margin on each side
+  const contentWidth = pdfWidth - pageMargin * 2;
 
-    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
-    
-    // Add additional pages if content is too long
-    let heightLeft = imgHeight;
-    let position = 10;
-    let pageCount = 1;
-    
-    while (heightLeft >= pdfHeight - 20 && pageCount < 10) {
-      position = heightLeft - (pdfHeight - 20);
-      pdf.addPage();
-      pdf.addImage(imgData, "PNG", 10, -position, imgWidth, imgHeight);
-      heightLeft -= (pdfHeight - 20);
-      pageCount++;
+  // Calculate scaling factor
+  const htmlWidth = 900; // Our fixed content width in pixels
+  const scale = contentWidth / htmlWidth * 2; // Scale factor for html2canvas
+
+  try {
+    let currentPosition = 0;
+    let pageNumber = 1;
+    const totalHeight = wrapper.scrollHeight;
+    const pageHeightPixels = (pdfHeight - pageMargin * 2) * (htmlWidth / contentWidth);
+
+    while (currentPosition < totalHeight && pageNumber < 20) { // Safety limit
+      // Create a temporary container for the current page
+      const pageContainer = document.createElement("div");
+      pageContainer.style.width = `${htmlWidth}px`;
+      pageContainer.style.position = "absolute";
+      pageContainer.style.top = `-${currentPosition}px`;
+      pageContainer.style.left = "0";
+      pageContainer.style.overflow = "hidden";
+      pageContainer.style.height = `${pageHeightPixels}px`;
+      
+      // Clone the content for this page
+      const contentClone = wrapper.cloneNode(true);
+      pageContainer.appendChild(contentClone);
+
+      // Add to document temporarily
+      document.body.appendChild(pageContainer);
+
+      // Capture this page section
+      const canvas = await html2canvas(pageContainer, {
+        scale: scale,
+        useCORS: true,
+        backgroundColor: "#0f0c29",
+        logging: false,
+        allowTaint: true,
+        letterRendering: true,
+        windowHeight: pageHeightPixels,
+        height: pageHeightPixels,
+        scrollY: -currentPosition
+      });
+
+      // Remove temporary container
+      document.body.removeChild(pageContainer);
+
+      // Add to PDF
+      const imgData = canvas.toDataURL("image/png");
+      const imgHeight = (canvas.height * contentWidth) / canvas.width;
+
+      if (pageNumber > 1) {
+        pdf.addPage();
+      }
+
+      pdf.addImage(imgData, "PNG", pageMargin, pageMargin, contentWidth, imgHeight);
+
+      // Move to next page position
+      currentPosition += pageHeightPixels * 0.9; // Slight overlap to prevent cutting content
+      pageNumber++;
     }
 
+    // Save the PDF
     pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+  } finally {
+    // Clean up
     document.body.removeChild(wrapper);
-  });
+  }
 };
 
   return (
