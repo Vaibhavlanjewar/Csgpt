@@ -142,267 +142,214 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     });
   };
 
-  const downloadPDF = () => {
-    if (!responseRef.current) return;
+const downloadPDF = () => {
+  if (!responseRef.current) return;
 
-    const input = responseRef.current;
-    const clonedNode = input.cloneNode(true);
+  const input = responseRef.current;
+  const clonedNode = input.cloneNode(true);
 
-    // Create a style element with all our CSS
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = `
-      .response-section {
-        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-        padding: 2.5rem !important;
-        margin: 0 auto !important;
-        max-width: 900px !important;
-        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif !important;
-        color: #e0f7ff !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      }
-      
-      /* Enhanced title styling */
-      .response-title {
-        font-size: 2rem !important;
-        margin-bottom: 2rem !important;
-        padding-bottom: 0.75rem !important;
-        font-weight: 800 !important;
-        color: #F0E6A8 !important;
-        position: relative;
-        text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
-      }
-      .response-title::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, #00d4ff, #7e5bef) !important;
-      }
-      
-      /* Enhanced heading styling */
-      .response-heading {
-        margin: 2rem 0 1.25rem !important;
-        font-weight: 700 !important;
-        position: relative;
-        padding-left: 1.5rem !important;
-      }
-      .response-heading::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0.25em;
-        height: 0.8em;
-        width: 5px;
-        border-radius: 3px;
-      }
-      .response-heading:nth-of-type(1) { 
-        font-size: 1.8rem !important; 
-        color: #7ee8fa !important; 
-      }
-      .response-heading:nth-of-type(1)::before {
-        background: #7ee8fa !important;
-      }
-      .response-heading:nth-of-type(2) { 
-        font-size: 1.5rem !important; 
-        color: #93c5fd !important; 
-      }
-      .response-heading:nth-of-type(2)::before {
-        background: #93c5fd !important;
-      }
-      .response-heading:nth-of-type(3) { 
-        font-size: 1.3rem !important; 
-        color: #a5b4fc !important; 
-      }
-      .response-heading:nth-of-type(3)::before {
-        background: #a5b4fc !important;
-      }
-      .response-heading:nth-of-type(4) { 
-        font-size: 1.1rem !important; 
-        color: #c7d2fe !important; 
-      }
-      .response-heading:nth-of-type(4)::before {
-        background: #c7d2fe !important;
-      }
-      
-      /* Rest of your styles... */
-      .response-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-        padding-bottom: 1.25rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      }
-      .selected-topic {
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-      }
-      .selected-label {
-        color: #a5b4fc;
-        margin-right: 0.75rem;
-        font-weight: 500;
-      }
-      .topic-name {
-        color: #00d4ff;
-        font-weight: 700;
-        font-size: 1.3rem;
-      }
-      .action-buttons {
-        display: flex;
-        gap: 1rem;
-      }
-      .response-content {
-        line-height: 1.8;
-        font-size: 1.05rem;
-      }
-      .response-paragraph {
-        margin-bottom: 1.25rem;
-        color: #e0f7ff;
-      }
-      .response-list {
-        margin: 1.25rem 0 1.25rem 2rem;
-        list-style-type: disc;
-      }
-      .response-list li {
-        margin-bottom: 0.75rem;
-        color: #e0f7ff;
-      }
-      .code-block {
-        background: linear-gradient(135deg, #1e293b, #0f172a);
-        color: #f0fdfa;
-        padding: 1.25rem;
-        border-radius: 8px;
-        overflow-x: auto;
-        margin: 2rem 0;
-        font-family: 'Fira Code', 'Courier New', monospace;
-        font-size: 0.95rem;
-        line-height: 1.6;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-      }
-      .response-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 2rem 0;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-        overflow: hidden;
-      }
-      .response-table th,
-      .response-table td {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 1rem;
-        text-align: left;
-      }
-      .response-table th {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
-        color: white;
-        font-weight: 700;
-      }
-      .response-table tr:nth-child(even) {
-        background: rgba(255, 255, 255, 0.03);
-      }
-      @media print {
-        .action-buttons {
-          display: none !important;
-        }
-        * {
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-        }
-      }
-    `;
+  // Create a style element with all our CSS
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
+    /* Main container styling */
+    .response-section {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important;
+      border-radius: 12px !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+      padding: 2.5rem !important;
+      margin: 0 auto !important;
+      max-width: 900px !important;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif !important;
+      color: #e0f7ff !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Title styling */
+    .response-title {
+      font-size: 2rem !important;
+      margin-bottom: 2rem !important;
+      padding-bottom: 0.75rem !important;
+      font-weight: 800 !important;
+      background: linear-gradient(90deg, #00d4ff, #7e5bef) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      color: transparent !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+    
+    /* Headings */
+    .response-heading {
+      margin: 2rem 0 1.25rem !important;
+      font-weight: 700 !important;
+    }
+    .response-heading:nth-of-type(1) { 
+      font-size: 1.8rem !important; 
+      color: #7ee8fa !important; 
+    }
+    .response-heading:nth-of-type(2) { 
+      font-size: 1.5rem !important; 
+      color: #93c5fd !important; 
+    }
+    .response-heading:nth-of-type(3) { 
+      font-size: 1.3rem !important; 
+      color: #a5b4fc !important; 
+    }
+    .response-heading:nth-of-type(4) { 
+      font-size: 1.1rem !important; 
+      color: #c7d2fe !important; 
+    }
+    
+    /* Paragraphs and text */
+    .response-paragraph {
+      margin-bottom: 1.25rem !important;
+      color: #e0f7ff !important;
+    }
+    
+    /* Lists */
+    .response-list {
+      margin: 1.25rem 0 1.25rem 2rem !important;
+      list-style-type: disc !important;
+    }
+    .response-list li {
+      margin-bottom: 0.75rem !important;
+      color: #e0f7ff !important;
+    }
+    
+    /* Code blocks */
+    .code-block {
+      background: linear-gradient(135deg, #1e293b, #0f172a) !important;
+      color: #f0fdfa !important;
+      padding: 1.25rem !important;
+      border-radius: 8px !important;
+      margin: 2rem 0 !important;
+      font-family: 'Fira Code', 'Courier New', monospace !important;
+      font-size: 0.95rem !important;
+      line-height: 1.6 !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    /* Tables */
+    .response-table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      margin: 2rem 0 !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+    }
+    .response-table th,
+    .response-table td {
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      padding: 1rem !important;
+      text-align: left !important;
+    }
+    .response-table th {
+      background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+      color: white !important;
+      font-weight: 700 !important;
+    }
+    .response-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03) !important;
+    }
+    
+    /* Header section */
+    .response-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-bottom: 2rem !important;
+      padding-bottom: 1.25rem !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+    .selected-topic {
+      font-size: 1.2rem !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    .selected-label {
+      color: #a5b4fc !important;
+      margin-right: 0.75rem !important;
+      font-weight: 500 !important;
+    }
+    .topic-name {
+      background: linear-gradient(90deg, #00d4ff, #7e5bef) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      color: transparent !important;
+      font-weight: 700 !important;
+      font-size: 1.3rem !important;
+    }
+    
+    /* Hide action buttons in PDF */
+    .action-buttons {
+      display: none !important;
+    }
+    
+    /* Ensure fonts are loaded */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+  `;
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "response-section";
-    wrapper.appendChild(styleSheet);
-    wrapper.appendChild(clonedNode);
+  // Create a wrapper div to hold our content and styles
+  const wrapper = document.createElement("div");
+  wrapper.className = "response-section";
+  wrapper.appendChild(styleSheet);
+  wrapper.appendChild(clonedNode);
 
-    // Enhance elements for PDF
-    const enhanceElements = () => {
-      // Add decorative elements to headings
-      const headings = wrapper.querySelectorAll('.response-heading');
-      headings.forEach(heading => {
-        const decorator = document.createElement("span");
-        decorator.style.position = "absolute";
-        decorator.style.left = "0";
-        decorator.style.top = "0.25em";
-        decorator.style.height = "0.8em";
-        decorator.style.width = "5px";
-        decorator.style.borderRadius = "3px";
-        
-        if (heading.classList.contains('response-heading')) {
-          const level = parseInt(heading.tagName.charAt(1));
-          const colors = ['#7ee8fa', '#93c5fd', '#a5b4fc', '#c7d2fe'];
-          decorator.style.background = colors[level - 1] || '#7ee8fa';
-        }
-        
-        heading.insertBefore(decorator, heading.firstChild);
-      });
+  // Set dimensions and styling for PDF
+  wrapper.style.width = "900px";
+  wrapper.style.margin = "0 auto";
+  wrapper.style.padding = "30px";
+  wrapper.style.backgroundColor = "#0f0c29";
 
-      // Ensure topic name has proper color
-      const topicName = wrapper.querySelector('.topic-name');
-      if (topicName) {
-        topicName.style.backgroundImage = 'none';
-        topicName.style.color = '#00d4ff';
-      }
-    };
+  // Temporarily add to document for rendering
+  document.body.appendChild(wrapper);
 
-    enhanceElements();
+  // Use html2canvas with enhanced settings
+  html2canvas(wrapper, {
+    scale: 3, // Higher scale for better quality
+    useCORS: true,
+    backgroundColor: "#0f0c29",
+    logging: false,
+    allowTaint: true,
+    letterRendering: true,
+    onclone: (clonedDoc) => {
+      // Ensure fonts are loaded in the cloned document
+      const style = clonedDoc.createElement("style");
+      style.textContent = `
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+      `;
+      clonedDoc.head.appendChild(style);
+    }
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pdfWidth - 20; // Add margins
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    // Set dimensions and styling for PDF
-    wrapper.style.width = "900px";
-    wrapper.style.margin = "0 auto";
-    wrapper.style.padding = "30px";
-    wrapper.style.backgroundColor = "#0f0c29";
+    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+    
+    // Add additional pages if content is too long
+    let heightLeft = imgHeight;
+    let position = 10;
+    let pageCount = 1;
+    
+    while (heightLeft >= pdfHeight - 20 && pageCount < 10) {
+      position = heightLeft - (pdfHeight - 20);
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 10, -position, imgWidth, imgHeight);
+      heightLeft -= (pdfHeight - 20);
+      pageCount++;
+    }
 
-    document.body.appendChild(wrapper);
-
-    html2canvas(wrapper, {
-      scale: 3, // Higher scale for better quality
-      useCORS: true,
-      backgroundColor: "#0f0c29",
-      logging: false,
-      allowTaint: true,
-      letterRendering: true,
-      onclone: (clonedDoc) => {
-        // Ensure fonts are loaded
-        const style = clonedDoc.createElement("style");
-        style.textContent = `
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-          @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-        `;
-        clonedDoc.head.appendChild(style);
-      }
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = pdfWidth - 20; // Add margins
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
-      
-      // Add additional pages if needed
-      let heightLeft = imgHeight - (pdfHeight - 20);
-      let position = 10;
-      while (heightLeft >= 0) {
-        position = heightLeft - (pdfHeight - 20);
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
-        heightLeft -= (pdfHeight - 20);
-      }
-
-      pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
-      document.body.removeChild(wrapper);
-    });
-  };
+    pdf.save(`${selectedTopic || "csgpt-notes"}.pdf`);
+    document.body.removeChild(wrapper);
+  });
+};
 
   return (
     <div className="response-section">
