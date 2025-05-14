@@ -7,36 +7,6 @@
   padding: 0;
 }
 
-/* Add or update in styles/App.css */
-.content-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.content-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-/* Responsive stacking on small screens */
-@media (max-width: 768px) {
-  .content-wrapper {
-    flex-direction: column;
-    padding: 0.75rem;
-  }
-}
-
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-
 html, body {
   height: 100%;
   width: 100%;
@@ -90,6 +60,8 @@ a:hover {
 }
 
 .content-container {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   padding: 2rem;
   background-color: #000000a6;
@@ -98,6 +70,7 @@ a:hover {
 .content-wrapper {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   gap: 20px;
   padding: 20px;
   max-width: 1600px;
@@ -141,17 +114,14 @@ a:hover {
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: #e2e8f0;
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #94a3b8;
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #64748b;
 }
@@ -174,6 +144,7 @@ a:hover {
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid rgba(74, 144, 226, 0.3);
+  flex-wrap: wrap;
 }
 
 .response-title {
@@ -206,12 +177,9 @@ a:hover {
 
 .response-content a {
   color: #4da3ff;
-  text-decoration: none;
-  transition: color 0.2s;
 }
 .response-content a:hover {
   color: #82b1ff;
-  text-decoration: underline;
 }
 
 .response-content ul,
@@ -223,7 +191,7 @@ a:hover {
 }
 
 .response-content code {
-  font-family: 'Fira Code', monospace, 'Roboto', sans-serif;
+  font-family: 'Fira Code', monospace;
   background-color: rgba(10, 25, 47, 0.7);
   color: #a5d6ff;
   padding: 0.2rem 0.4rem;
@@ -256,7 +224,6 @@ a:hover {
   font-style: italic;
 }
 
-/* Markdown Table Styles */
 .response-content table {
   border-collapse: collapse;
   width: 100%;
@@ -285,8 +252,9 @@ a:hover {
 @media (max-width: 1024px) {
   .content-wrapper {
     flex-direction: column;
-    padding: 15px;
+    padding: 1.5rem;
   }
+
   .main-content {
     max-height: none;
   }
@@ -296,49 +264,59 @@ a:hover {
   .content-container {
     padding: 1rem;
   }
-  
-  .response-section {
-    padding: 20px;
+
+  .content-wrapper {
+    padding: 1rem;
+    gap: 16px;
   }
+
+  .main-content {
+    padding: 1rem;
+    box-shadow: none;
+  }
+
+  .response-section {
+    padding: 1rem;
+  }
+
   .response-title {
     font-size: 1.3rem;
   }
+
   .response-content {
     font-size: 0.95rem;
   }
+
   .response-content pre {
     padding: 12px;
-  }
-  
-  .content-wrapper {
-    padding: 10px;
-  }
-  .main-content {
-    padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
   .response-section {
-    padding: 15px;
+    padding: 0.75rem;
   }
+
   .response-header {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .response-title {
     margin-bottom: 10px;
   }
+
   .response-content ul,
   .response-content ol {
-    margin-left: 1.5rem;
+    margin-left: 1.25rem;
   }
-  
+
   .content-wrapper {
-    padding: 8px;
-    gap: 10px;
+    padding: 0.5rem;
+    gap: 12px;
   }
+
   .main-content {
-    padding: 10px;
+    padding: 0.75rem;
   }
 }
