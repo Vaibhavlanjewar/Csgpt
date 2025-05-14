@@ -7,6 +7,36 @@
   padding: 0;
 }
 
+/* Add or update in styles/App.css */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Responsive stacking on small screens */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+    padding: 0.75rem;
+  }
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
 html, body {
   height: 100%;
   width: 100%;
