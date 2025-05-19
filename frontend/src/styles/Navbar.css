@@ -103,3 +103,40 @@
 .logout-btn:hover::after {
   transform: scaleX(1);
 }
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.search-container {
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 4px 0 0 4px;
+  border: none;
+  width: 200px;
+}
+
+.search-bar button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  background-color: #00bfff;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
