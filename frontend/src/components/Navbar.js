@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { signOutUser } from "../firebase/firebase";
 import SearchBar from "./SearchBar"; // ✅ Import SearchBar
 import "../styles/Navbar.css";
+import Logo from "./_CsGpt.png"; // ✅ Import logo image
 
 const Navbar = ({ onLogout, onSearch }) => {
   const handleLogout = async () => {
@@ -13,7 +14,9 @@ const Navbar = ({ onLogout, onSearch }) => {
   return (
     <nav className="navbar">
       <h1 className="logo">
-        <Link to="/" className="logo-link">CsGpt</Link>
+        <Link to="/" className="logo-link">
+          <img src={Logo} alt="CsGpt Logo" className="logo-image" />
+        </Link>
       </h1>
 
       {/* ✅ Add the SearchBar */}
