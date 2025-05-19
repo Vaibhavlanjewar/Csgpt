@@ -140,3 +140,18 @@
   border-radius: 0 4px 4px 0;
   cursor: pointer;
 }
+
+.logo-image {
+  height: 40px;        /* Adjust size as needed */
+  width: auto;         /* Keeps original aspect ratio */
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.logo-image:active {
+  transform: scale(0.95) rotate(-5deg);
+}
+
