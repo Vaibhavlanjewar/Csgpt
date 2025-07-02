@@ -142,7 +142,7 @@ const ResponseSection = ({ selectedTopic, aiResponse, isLoading }) => {
     });
   };
 
-const downloadPDF = () => {
+const downloadPDF = async  () => {
   if (!responseRef.current) return;
 
   const input = responseRef.current;
