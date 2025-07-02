@@ -29,52 +29,39 @@ function App() {
   }, []);
 
   const generatePrompt = (topic) => {
-  return `As a Computer Science expert, provide a comprehensive and in-depth explanation of "${topic}" covering the following:
+  return `You are an expert AI mentor for computer science students and interview aspirants. For the given topic, provide a comprehensive and well-structured explanation including the following sections:
 
-1. **Core Concept**  
-   - Clear definition and purpose  
-   - Historical background or context (if relevant)
+1. **Theory in Brief**  
+   - Explain the topic concisely, covering its core concepts and definitions.  
+   - Use bullet points or headings where appropriate to improve clarity.  
+   - Include diagrams, real-world relevance, or comparisons when useful.
 
-2. **Technical Details**  
-   - How it works under the hood  
-   - Architectural insights, flowcharts, or system diagrams
+2. **Code Examples**  
+   - Provide clear and relatable code examples in **multiple programming languages**: Java, Python, C++, and C.  
+   - Each snippet should be well-commented and relevant to the theory.
 
-3. **Implementation**  
-   - Code examples in relevant programming languages (e.g., JavaScript, Python, Java)  
-   - Explain each code block line-by-line  
-   - Include project setup steps, configurations, and integration tips
+3. **Tables, Lists, or Diagrams**  
+   - Use bullet lists or tables to highlight key differences, advantages/disadvantages, use-cases, or classifications.  
+   - Include diagrams in text format where helpful (e.g., process diagrams, stack memory illustrations).
 
-4. **Real-world Applications**  
-   - Use cases in industry  
-   - How companies or domains benefit from this  
-   - Example scenarios
+4. **Question and Answer Section (25–30 in-depth)**  
+   - Include **25 to 30 important academic + interview questions** based on the topic And for each question, provide a **detailed and well-reasoned answer** with examples, explanations, or illustrations where necessary.Cover **basic, intermediate, and advanced** levels.  
+   - Mark each question by purpose:
+     - 📘 *Academic*
+     - 💼 *Interview*
+     - ⚙️ *Conceptual Analysis*
 
-5. **Comparative Analysis**  
-   - Include tables to compare with alternatives (e.g., Firebase vs Supabase)  
-   - Discuss trade-offs and performance considerations
+5. **Important Notes Summary**  
+   - Provide a concise summary or checklist of key points for last-minute revision with diagram or mindmap or steps .
 
-6. **Best Practices and Pitfalls**  
-   - Performance optimization techniques  
-   - Common mistakes and how to avoid them  
-   - Security or scalability considerations
+6. **Common Mistakes & Industry Applications (Optional)**  
+   - List frequent misunderstandings students face regarding the topic.  
+   - Mention real-world use-cases or how companies apply this concept.
 
-7. **25+ Interview Questions (Grouped by Level)**  
-   - Beginner: Basic conceptual questions  
-   - Intermediate: Design-oriented or semi-coding  
-   - Advanced: Algorithmic, coding-heavy, or real-world problem-solving  
-   - Provide code, explanation, and complexity analysis if needed
+7. **References**  
+   - List relevant standard books, documentation links, or trusted online resources used to generate the above content.
 
-8. **Project Ideas**  
-   - Suggest 3–5 real-world mini-projects or capstone ideas related to the topic
-
-9. **References**  
-   - Link to official documentation, tools, blogs, videos, and whitepapers  
-   - Mention your expert tips or hidden tricks
-
-10. **Format**  
-    - Clean and well-structured Markdown  
-    - Use proper headings, code blocks, bullet lists, diagrams, tables, and quotes where helpful  
-    - Tone should be professional but easy to follow for beginners and pros alike
+Use clear markdown-style formatting, headings, and styling. Ensure the tone is educational, concise, and suitable for both final-year students and interview preparation (e.g., TCS, Infosys, Cognizant, Amazon, etc.).
 `;
 };
 
