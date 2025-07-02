@@ -1,3 +1,6 @@
+/* ============================ */
+/* Navbar Container Styling     */
+/* ============================ */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -12,10 +15,12 @@
   transition: all 0.3s ease;
 }
 
-/* Logo Styling */
+/* ============================ */
+/* Text-Based Logo Styling      */
+/* ============================ */
 .logo {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
   font-family: 'Segoe UI', sans-serif;
   letter-spacing: 1px;
   transition: transform 0.3s ease, color 0.3s ease;
@@ -23,24 +28,32 @@
 }
 
 .logo-link {
-  color: #ffffff;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
-/* Hover Animation */
-.logo:hover {
-  color: #ffe066; /* Light golden color */
-  transform: scale(1.1) rotate(5deg); /* Slightly enlarge and rotate */
+.text-logo {
+  background: linear-gradient(90deg, #00d4ff, #7e5bef);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
 }
 
-/* Click Animation */
-.logo:active {
-  transform: scale(0.95) rotate(-5deg); /* Slight shrink on click */
-  color: #ff4e4e;  /* Red color when clicked */
+.logo:hover .text-logo {
+  transform: scale(1.1) rotate(5deg);
+  color: #ffe066;
 }
 
-/* Navigation Actions */
+.logo:active .text-logo {
+  transform: scale(0.95) rotate(-5deg);
+  color: #ff4e4e;
+}
+
+/* ============================ */
+/* Navigation Links & Buttons   */
+/* ============================ */
 .nav-actions {
   display: flex;
   gap: 1rem;
@@ -60,14 +73,16 @@
 
 .nav-link:hover {
   background: rgba(130, 174, 192, 0.12);
-  color: #d64a2a; /* Soft golden yellow for contrast */
+  color: #d64a2a;
   box-shadow: 0 0 10px rgba(255, 224, 102, 0.4);
   transform: translateY(-1px) scale(1.05);
 }
 
-/* Logout Button */
+/* ============================ */
+/* Logout Button Styling        */
+/* ============================ */
 .logout-btn {
-  background: #b95f5f;  /* Soft reddish hue */
+  background: #b95f5f;
   color: #ffffff;
   border: none;
   padding: 8px 14px;
@@ -80,13 +95,12 @@
 }
 
 .logout-btn:hover {
-  background-color: #e74c3c;  /* Lighter red */
-  color: #fff;
+  background-color: #e74c3c;
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 4px 12px rgba(255, 99, 71, 0.5);
 }
 
-/* Adding a cool underline effect */
+/* Underline Animation */
 .logout-btn::after {
   content: '';
   position: absolute;
@@ -104,15 +118,9 @@
   transform: scaleX(1);
 }
 
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #1a1a1a;
-  color: white;
-}
-
+/* ============================ */
+/* Optional: Search Bar Styling */
+/* ============================ */
 .search-container {
   flex-grow: 1;
   margin: 0 20px;
@@ -140,18 +148,3 @@
   border-radius: 0 4px 4px 0;
   cursor: pointer;
 }
-
-.logo-image {
-  height: 40px;        /* Adjust size as needed */
-  width: auto;         /* Keeps original aspect ratio */
-  transition: transform 0.3s ease;
-}
-
-.logo-image:hover {
-  transform: scale(1.1) rotate(5deg);
-}
-
-.logo-image:active {
-  transform: scale(0.95) rotate(-5deg);
-}
-
