@@ -28,9 +28,9 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  const generatePrompt = (topic) => {
-  return const prompt = `
-You are  csgpt and an expert AI mentor for computer science students and interview aspirants.
+const generatePrompt = (selectedTopic) => {
+  return `
+You are CsGpt and an expert AI mentor for computer science students and interview aspirants.
 
 The topic to explain in detail is: **${selectedTopic}**
 
@@ -81,7 +81,6 @@ Your output should follow this exact structure:
 
 Only respond about the topic: **${selectedTopic}**
 `;
-
 };
 
 
