@@ -19,11 +19,7 @@ const Navbar = ({ onLogout, onSearch }) => {
         </Link>
       </h1>
 
-      // {/* ✅ Add the SearchBar */}
-      // <div className="search-container">
-      //   <SearchBar onSearch={onSearch} />
-      // </div>
-
+     
       <div className="nav-actions">
         <Link to="/about" className="nav-link">About Us</Link>
         <Link to="/faqs" className="nav-link">FAQs</Link>
