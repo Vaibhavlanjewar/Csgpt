@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
 
-const MODEL_NAME = "gemini-1.5-flash";
+// Use the "-latest" suffix for the model name
+const MODEL_NAME = "gemini-1.5-flash-latest"; 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 router.post("/ask-ai", async (req, res) => {
@@ -26,9 +27,17 @@ router.post("/ask-ai", async (req, res) => {
       ],
     });
 
-    const text = result?.response?.text?.();
+    // A more reliable way to get the response text
+    const response = result.response;
+    const text = response.candidates?.[0]?.content?.parts?.[0]?.text;
+
     if (!text) {
-      return res.status(400).json({ error: "Gemini blocked the content or returned an empty response." });
+      // Check if the response was blocked
+      const blockedReason = response.promptFeedback?.blockReason;
+      const finishReason = response.candidates?.[0]?.finishReason;
+      const errorMessage = `Gemini returned an empty response. Finish reason: ${finishReason}. Block reason: ${blockedReason || 'None'}.`;
+      
+      return res.status(400).json({ error: errorMessage });
     }
 
     res.json({ response: text });
